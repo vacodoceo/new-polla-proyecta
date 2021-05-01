@@ -1,6 +1,9 @@
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { AppBar, Button, Link, Toolbar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import CameraIcon from '@material-ui/icons/PhotoCamera';
+
+import firebase from '../../firebase';
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -19,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = () => {
   const classes = useStyles();
+  const [user, loading, error] = useAuthState(firebase.auth());
+
+  console.log(user, loading);
 
   return (
     <AppBar position="relative">
