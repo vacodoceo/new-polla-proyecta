@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import {
   Button,
   Card,
@@ -46,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const cards = [1, 2, 3, 4, 5, 6];
 
 const Landing = () => {
   const classes = useStyles();
@@ -77,9 +78,11 @@ const Landing = () => {
           <div className={classes.heroButtons}>
             <Grid container spacing={2} justify="center">
               <Grid item>
-                <Button variant="contained" color="primary">
-                  ¡Apuesta ya!
-                </Button>
+                <Link to="/bet" style={{ textDecoration: 'none' }}>
+                  <Button variant="contained" color="primary">
+                    ¡Apuesta ya!
+                  </Button>
+                </Link>
               </Grid>
               <Grid item>
                 <Button variant="outlined" color="primary">

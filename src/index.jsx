@@ -13,17 +13,15 @@ const theme = createMuiTheme({
   palette: {
     primary: {
       main: '#33ccff',
+      light: '#5bd6ff',
+      dark: '#238eb2',
+      contrastText: '#fff',
     },
     secondary: {
       main: '#ffffff',
     },
-  },
-
-  overrides: {
-    MuiButton: {
-      containedPrimary: {
-        color: 'white',
-      },
+    background: {
+      paper: '#fafafa',
     },
   },
 });
