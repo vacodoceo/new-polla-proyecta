@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import {
+  Button,
   Container,
+  makeStyles,
   Stepper,
   Step,
   StepLabel,
-  makeStyles,
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -23,6 +24,10 @@ const steps = {
 const Bet = () => {
   const [activeStep, setActiveStep] = useState(0);
 
+  const handleNextClick = () => {
+    setActiveStep(activeStep + 1);
+  };
+
   const classes = useStyles();
   return (
     <Container maxWidth="lg" className={classes.container}>
@@ -33,6 +38,9 @@ const Bet = () => {
           </Step>
         ))}
       </Stepper>
+      <Button onClick={handleNextClick} variant="contained" color="primary">
+        Siguiente
+      </Button>
     </Container>
   );
 };
