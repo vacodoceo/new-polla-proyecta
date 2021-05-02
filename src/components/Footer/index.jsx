@@ -12,7 +12,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       Made with 💙 by{' '}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link color="inherit" href="https://github.com/vacodoceo">
         @vacodoceo
       </Link>{' '}
       for Proyecta
