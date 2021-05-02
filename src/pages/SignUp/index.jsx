@@ -55,7 +55,7 @@ const SignUp = () => {
     <>
       <Typography
         component="h1"
-        variant="h3"
+        variant="h4"
         align="center"
         className={classes.title}
       >

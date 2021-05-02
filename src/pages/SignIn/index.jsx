@@ -4,7 +4,6 @@ import {
   Button,
   Container,
   Link,
-  Grid,
   TextField,
   Typography,
 } from '@material-ui/core';
@@ -15,6 +14,11 @@ import firebase from '../../firebase';
 const useStyles = makeStyles((theme) => ({
   avatar: {
     backgroundColor: theme.palette.primary.main,
+  },
+  authLinks: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
   },
   form: {
     width: '100%',
@@ -53,7 +57,7 @@ const SignIn = () => {
     <>
       <Typography
         component="h1"
-        variant="h3"
+        variant="h4"
         align="center"
         className={classes.title}
       >
@@ -105,18 +109,14 @@ const SignIn = () => {
             >
               Iniciar sesión
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  ¿Olvidaste tu contraseña?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="/sign-up" variant="body2">
-                  {'¿No tienes una cuenta? ¡Regístrate!'}
-                </Link>
-              </Grid>
-            </Grid>
+            <div className={classes.authLinks}>
+              <Link href="#" variant="body2">
+                ¿Olvidaste tu contraseña?
+              </Link>
+              <Link href="/sign-up" variant="body2">
+                ¿No tienes una cuenta? Regístrate
+              </Link>
+            </div>
           </form>
         </div>
       </Container>
