@@ -95,14 +95,23 @@ const DesktopHeader = ({ navData }) => {
             Bienvenide, {user.displayName}
           </Button>
           <Menu
-            id="simple-menu"
             anchorEl={anchorEl}
-            keepMounted
             open={Boolean(anchorEl)}
             onClose={handleUserClose}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            style={{
+              marginTop: '48px',
+            }}
           >
             <MenuItem onClick={handleUserClose}>Mi perfil</MenuItem>
-            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            <MenuItem onClick={handleLogout}>Cerrar sesión</MenuItem>
           </Menu>
         </>
       )}
