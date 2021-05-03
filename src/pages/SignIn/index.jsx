@@ -75,7 +75,7 @@ const SignIn = () => {
             O si prefieres el camino largo...
           </Typography>
 
-          <form className={classes.form} noValidate>
+          <form className={classes.form}>
             <TextField
               variant="outlined"
               margin="normal"
@@ -85,7 +85,6 @@ const SignIn = () => {
               label="Correo electrónico"
               name="email"
               autoComplete="email"
-              autoFocus
               size="small"
             />
             <TextField

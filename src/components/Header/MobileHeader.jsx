@@ -82,8 +82,6 @@ const MobileHeader = ({ navData }) => {
       <IconButton
         edge="start"
         color="inherit"
-        ariaLabel="menu"
-        ariaHaspopup="true"
         onClick={() => setDrawerOpen(true)}
       >
         <MenuIcon />

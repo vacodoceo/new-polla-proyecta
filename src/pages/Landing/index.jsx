@@ -72,8 +72,8 @@ const Landing = () => {
             paragraph
           >
             Un sitio en el que podrás ganar premios apostando por los resultados
-            de la Copa América, al mismo tiempo que estarás ayudando al
-            financiamiento del voluntariado Proyecta.
+            de la Copa América, al mismo tiempo que estarás ayudando a disminuir
+            la pobreza multidimensional en Chile.
           </Typography>
           <div className={classes.heroButtons}>
             <Grid container spacing={2} justify="center">

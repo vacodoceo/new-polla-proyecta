@@ -24,7 +24,7 @@ const Footer = () => {
   const classes = useStyles();
   return (
     <footer className={classes.footer}>
-      <Typography variant="subtitle1" align="center" color="text" component="p">
+      <Typography variant="subtitle1" align="center" component="p">
         ¡Visítanos también en nuestras redes sociales!
       </Typography>
       <Copyright />
