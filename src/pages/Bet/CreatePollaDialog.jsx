@@ -36,7 +36,8 @@ const CreatePollaDialog = ({ dialogOpen, handleClose, createPolla }) => {
     }
   };
 
-  const submit = async () => {
+  const submit = async (e) => {
+    e.preventDefault();
     if (_.isEmpty(pollaName)) {
       setPollaNameError('¡Debes ponerle un nombre a tu polla!');
     } else {
@@ -57,37 +58,34 @@ const CreatePollaDialog = ({ dialogOpen, handleClose, createPolla }) => {
       <DialogTitle id="form-dialog-title">
         ¡Dale un nombre a tu polla!
       </DialogTitle>
-      <form autoComplete="off">
-        <DialogContent>
-          <DialogContentText color="textPrimary">
-            Como último paso queremos pedirte que le des un nombre a tu polla
-            😄. Puede ser lo que tu quieras, pero ten en cuenta que si tu polla
-            llega a ser de las mejores, aparecerá su nombre en el Ranking de
-            Pollas 🏆.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="polla-name"
-            label="Nombre de tu polla"
-            type="polla-name"
-            error={pollaNameError}
-            helperText={pollaNameError}
-            fullWidth
-            onChange={handlePollaNameChange}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={submit}
-            color="primary"
-            variant="contained"
-            disabled={submitting}
-          >
-            Crear polla
-          </Button>
-        </DialogActions>
-      </form>
+      <DialogContent>
+        <DialogContentText color="textPrimary">
+          Como último paso queremos pedirte que le des un nombre a tu polla 😄.
+          Puede ser lo que tu quieras, pero ten en cuenta que si tu polla llega
+          a ser de las mejores, aparecerá su nombre en el Ranking de Pollas 🏆.
+        </DialogContentText>
+        <TextField
+          autoFocus
+          margin="dense"
+          id="polla-name"
+          label="Nombre de tu polla"
+          type="polla-name"
+          error={!!pollaNameError}
+          helperText={pollaNameError}
+          fullWidth
+          onChange={handlePollaNameChange}
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button
+          onClick={submit}
+          color="primary"
+          variant="contained"
+          disabled={submitting}
+        >
+          Crear polla
+        </Button>
+      </DialogActions>
 
       <Backdrop className={classes.backdrop} open={submitting}>
         <CircularProgress />

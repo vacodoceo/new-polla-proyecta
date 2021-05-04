@@ -24,8 +24,12 @@ const App = () => {
         <Switch>
           <Route path="/" exact component={Landing} />
           <PrivateRoute path="/bet" exact component={Bet} />
-          <PrivateRoute path="/payment" exact component={PaymentCallback} />
-          <PrivateRoute path="/payment/:pollaId" exact component={Payment} />
+          <PrivateRoute
+            path="/payment/callback"
+            exact
+            component={PaymentCallback}
+          />
+          <PrivateRoute path="/payment" exact component={Payment} />
           <PublicRoute path="/sign-up" exact component={SignUp} />
           <PublicRoute path="/sign-in" exact component={SignIn} />
         </Switch>

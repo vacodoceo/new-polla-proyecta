@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
   Avatar,
@@ -9,6 +10,8 @@ import {
 import { Done as DoneIcon } from '@material-ui/icons';
 import { green } from '@material-ui/core/colors';
 
+import firebase from '../../firebase';
+
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
@@ -18,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     background: green['A700'],
     height: theme.spacing(12),
     width: theme.spacing(12),
-    marginBottom: theme.spacing(4),
+    marginBottom: theme.spacing(2),
   },
   box: {
     display: 'flex',
@@ -26,15 +29,15 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   container: {
-    paddingTop: '5vh',
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    flexGrow: 1,
+    padding: theme.spacing(2, 1),
   },
   description: {
-    marginTop: '5vh',
+    marginTop: theme.spacing(2),
     maxWidth: '60ch',
     fontSize: '1.4rem',
     '& em': {
@@ -51,7 +54,17 @@ const useStyles = makeStyles((theme) => ({
 const PaymentCallback = () => {
   const query = useQuery();
 
-  console.log(query);
+  useEffect(async () => {
+    const payment_id = query.get('payment_id');
+    console.log(payment_id);
+
+    // const preferenceResponse = await firebase
+    //   .functions()
+    //   .httpsCallable('verifyPayment')({
+    //   payment_id,
+    //   preference_id,
+    // });
+  }, []);
 
   const classes = useStyles();
   return (
@@ -80,3 +93,5 @@ const PaymentCallback = () => {
 export default PaymentCallback;
 
 // Botón de otra polla
+// http://localhost:3000/payment?collection_id=1236440581&collection_status=approved&payment_id=1236440581&status=approved&external_reference=null&payment_type=credit_card&merchant_order_id=2627191805&preference_id=144746679-2171e103-7a1f-4cc7-b513-cf9af6467e78&site_id=MLC&processing_mode=aggregator&merchant_account_id=null
+// 1236440581 144746679-2171e103-7a1f-4cc7-b513-cf9af6467e78

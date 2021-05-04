@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Button,
   Container,
@@ -10,7 +11,7 @@ import {
 
 import firebase from '../../firebase';
 import CreatePollaDialog from './CreatePollaDialog';
-import FeedbackDialog from './FeedbackDialog';
+import FeedbackDialog from '../../components/FeedbackDialog';
 
 const steps = {
   instructions: { label: 'Instrucciones' },
@@ -28,16 +29,16 @@ const useStyles = makeStyles((theme) => ({
 const Bet = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [createPollaDialogOpen, setCreatePollaDialogOpen] = useState(false);
-  const [preferenceId, setPreferenceId] = useState();
+  const [pollaId, setPollaId] = useState();
   const [feedbackDialogOpen, setFeedbackDialogOpen] = useState(false);
 
   const createPolla = async (name) => {
-    const preferenceResponse = await firebase
+    const pollaIdResponse = await firebase
       .functions()
       .httpsCallable('createPolla')({
       name,
     });
-    setPreferenceId(preferenceResponse.data);
+    setPollaId(pollaIdResponse.data);
     setCreatePollaDialogOpen(false);
     setFeedbackDialogOpen(true);
   };
@@ -49,6 +50,26 @@ const Bet = () => {
       setActiveStep(activeStep + 1);
     }
   };
+
+  const FeedbackDialogDescription = () => (
+    <>
+      Tu polla ya está registrada, pero recuerda que{' '}
+      <em>debes pagarla para que empiece a participar</em>. Para ir a pagar solo
+      debes pulsar el botón de abajo, o bien hacerlo desde el menú de{' '}
+      <em>Mis Pollas.</em>
+    </>
+  );
+
+  const FeedbackDialogActions = () => (
+    <Button
+      component={Link}
+      to={`/payment?pollas=${pollaId}`}
+      variant="contained"
+      color="primary"
+    >
+      Ir a pagar
+    </Button>
+  );
 
   const classes = useStyles();
   return (
@@ -69,8 +90,11 @@ const Bet = () => {
         createPolla={createPolla}
       />
       <FeedbackDialog
-        preferenceId={preferenceId}
+        actions={FeedbackDialogActions}
+        description={FeedbackDialogDescription}
         dialogOpen={feedbackDialogOpen}
+        status="success"
+        title="¡Dale un nombre a tu polla!"
       />
     </Container>
   );
