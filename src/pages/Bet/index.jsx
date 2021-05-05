@@ -94,7 +94,7 @@ const Bet = () => {
         description={FeedbackDialogDescription}
         dialogOpen={feedbackDialogOpen}
         status="success"
-        title="¡Dale un nombre a tu polla!"
+        title="¡Polla creada!"
       />
     </Container>
   );

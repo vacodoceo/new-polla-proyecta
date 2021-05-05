@@ -1,14 +1,15 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
   Avatar,
   Box,
+  CircularProgress,
   Container,
   makeStyles,
   Typography,
 } from '@material-ui/core';
-import { Done as DoneIcon } from '@material-ui/icons';
-import { green } from '@material-ui/core/colors';
+import { Done as DoneIcon, Error as ErrorIcon } from '@material-ui/icons';
+import { green, red } from '@material-ui/core/colors';
 
 import firebase from '../../firebase';
 
@@ -16,12 +17,34 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
+const feedbackIcon = {
+  success: DoneIcon,
+  error: ErrorIcon,
+};
+
+const feedbackTitle = {
+  loading: 'Verificando pago...',
+  success: '¡Se procesó correctamente tu pago!',
+  error: 'Hubo un error al verificar su pago',
+};
+
+const feedbackDescription = {
+  success:
+    'Tu polla ya está participando y en unos segundos se actualizará el estado de tu pago en tu lista de pollas. ¡Muchas gracias!',
+  error:
+    'Por favor ponte en contacto con nosotres al Instagram @proyectauc o al correo ti@trabajosproyecta.cl.',
+};
+
 const useStyles = makeStyles((theme) => ({
   avatar: {
-    background: green['A700'],
     height: theme.spacing(12),
     width: theme.spacing(12),
     marginBottom: theme.spacing(2),
+
+    '& svg': {
+      height: theme.spacing(10),
+      width: theme.spacing(10),
+    },
   },
   box: {
     display: 'flex',
@@ -45,36 +68,43 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: 600,
     },
   },
-  icon: {
-    height: theme.spacing(10),
-    width: theme.spacing(10),
-  },
 }));
 
 const PaymentCallback = () => {
+  const [status, setStatus] = useState('loading');
   const query = useQuery();
 
   useEffect(async () => {
     const payment_id = query.get('payment_id');
     console.log(payment_id);
 
-    // const preferenceResponse = await firebase
-    //   .functions()
-    //   .httpsCallable('verifyPayment')({
-    //   payment_id,
-    //   preference_id,
-    // });
+    const paymentResponse = await firebase
+      .functions()
+      .httpsCallable('verifyPayment')({ payment_id });
+    const paymentStatus = paymentResponse.data;
+    setStatus(paymentStatus === 'approved' ? 'success' : 'error');
   }, []);
+
+  const avatarBackground = status === 'error' ? red['A700'] : green['A700'];
+  const FeedbackIcon = feedbackIcon[status];
 
   const classes = useStyles();
   return (
     <Container className={classes.container}>
       <Box className={classes.box}>
-        <Avatar className={classes.avatar}>
-          <DoneIcon className={classes.icon} />
-        </Avatar>
+        {status === 'loading' ? (
+          <CircularProgress size={80} className={classes.avatar} />
+        ) : (
+          <Avatar
+            className={classes.avatar}
+            style={{ background: avatarBackground }}
+          >
+            <FeedbackIcon />
+          </Avatar>
+        )}
+
         <Typography variant="h3" align="center">
-          ¡Se procesó correctamente tu pago!
+          {feedbackTitle[status]}
         </Typography>
       </Box>
 
@@ -83,8 +113,7 @@ const PaymentCallback = () => {
         align="center"
         color="textSecondary"
       >
-        Tu polla ya está participando y en unos segundos se actualizará el
-        estado de tu pago en tu lista de pollas. ¡Muchas gracias!
+        {feedbackDescription[status]}
       </Typography>
     </Container>
   );
@@ -93,5 +122,3 @@ const PaymentCallback = () => {
 export default PaymentCallback;
 
 // Botón de otra polla
-// http://localhost:3000/payment?collection_id=1236440581&collection_status=approved&payment_id=1236440581&status=approved&external_reference=null&payment_type=credit_card&merchant_order_id=2627191805&preference_id=144746679-2171e103-7a1f-4cc7-b513-cf9af6467e78&site_id=MLC&processing_mode=aggregator&merchant_account_id=null
-// 1236440581 144746679-2171e103-7a1f-4cc7-b513-cf9af6467e78

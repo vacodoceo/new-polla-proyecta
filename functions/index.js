@@ -1,5 +1,6 @@
 const admin = require('firebase-admin');
 const functions = require('firebase-functions');
+const axios = require('axios');
 const mercadopago = require('mercadopago');
 const _ = require('lodash');
 
@@ -65,16 +66,35 @@ exports.createPreference = functions.https.onCall(
   }
 );
 
-exports.validatePayment = functions.https.onCall(async (data, context) => {
-  return;
+exports.verifyPayment = functions.https.onCall(async (data, context) => {
+  const { payment_id } = data;
+  if (!context.auth || _.isEmpty(payment_id)) {
+    return false;
+  }
+
+  try {
+    const paymentsURL = 'https://api.mercadopago.com/v1/payments/';
+    const response = await axios.get(paymentsURL + payment_id, {
+      headers: {
+        authorization: `Bearer ${process.env.MERCADOPAGO_ACCESS_TOKEN}`,
+      },
+    });
+
+    return response.data.status;
+  } catch (e) {
+    console.log(e.message);
+    return e.message;
+  }
 });
 
 const validatePolla = async (pollaId) => {
   try {
     const pollaDoc = app.firestore().doc(`pollas/${pollaId}`);
     const pollaSnapshot = await pollaDoc.get();
-    return pollaSnapshot.data.status === 'unpaid';
+    console.log(pollaSnapshot, pollaSnapshot.data());
+    return pollaSnapshot.data().status === 'unpaid';
   } catch (err) {
+    console.log(err);
     return false;
   }
 };
