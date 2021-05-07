@@ -1,11 +1,9 @@
-const admin = require('firebase-admin');
 const functions = require('firebase-functions');
-const axios = require('axios');
 const mercadopago = require('mercadopago');
 const _ = require('lodash');
-
-const app = admin.initializeApp();
-
+const { verifyPayment } = require('./utils');
+const admin = require('firebase-admin');
+const app = require('./firebase');
 require('dotenv').config();
 
 mercadopago.configure({
@@ -22,6 +20,7 @@ exports.createPolla = functions.https.onCall(async ({ name }, context) => {
     userId: context.auth.uid,
     status: 'unpaid',
     score: 0,
+    createdAt: admin.firestore.FieldValue.serverTimestamp(),
   });
 
   return docRef.id;
@@ -67,23 +66,36 @@ exports.createPreference = functions.https.onCall(
 );
 
 exports.verifyPayment = functions.https.onCall(async (data, context) => {
-  const { payment_id } = data;
-  if (!context.auth || _.isEmpty(payment_id)) {
-    return false;
+  const { paymentId } = data;
+
+  if (!context.auth || !paymentId) {
+    return;
   }
 
   try {
-    const paymentsURL = 'https://api.mercadopago.com/v1/payments/';
-    const response = await axios.get(paymentsURL + payment_id, {
-      headers: {
-        authorization: `Bearer ${process.env.MERCADOPAGO_ACCESS_TOKEN}`,
-      },
-    });
-
-    return response.data.status;
+    const status = await verifyPayment(paymentId);
+    return status;
   } catch (e) {
     console.log(e.message);
     return e.message;
+  }
+});
+
+exports.webhookVerifyPayment = functions.https.onRequest(async (req, res) => {
+  console.log(req.body);
+  if (req.method === 'POST') {
+    const { data } = req.body;
+    const paymentId = data.id;
+
+    try {
+      const status = await verifyPayment(paymentId);
+      res.send(status);
+    } catch (e) {
+      console.log(e.message);
+      res.status(400).send(e.message);
+    }
+  } else {
+    res.status(400);
   }
 });
 
@@ -98,3 +110,5 @@ const validatePolla = async (pollaId) => {
     return false;
   }
 };
+
+// 1236490606

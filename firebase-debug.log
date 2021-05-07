@@ -1,0 +1,17 @@
+[debug] [2021-05-05T23:21:58.299Z] ----------------------------------------------------------------------
+[debug] [2021-05-05T23:21:58.301Z] Command:       /usr/local/bin/firebase /home/vacodoceo/.cache/firebase/tools/lib/node_modules/firebase-tools/lib/bin/firebase deploy --only functions
+[debug] [2021-05-05T23:21:58.301Z] CLI Version:   9.10.0
+[debug] [2021-05-05T23:21:58.301Z] Platform:      linux
+[debug] [2021-05-05T23:21:58.301Z] Node Version:  v12.18.1
+[debug] [2021-05-05T23:21:58.301Z] Time:          Wed May 05 2021 19:21:58 GMT-0400 (Chile Standard Time)
+[debug] [2021-05-05T23:21:58.301Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-05-05T23:21:58.306Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-05-05T23:21:58.306Z] > authorizing via signed-in user (vacodoceo@uc.cl)
+[debug] [2021-05-05T23:21:58.306Z] [iam] checking project new-polla-proyecta for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2021-05-05T23:21:58.307Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/new-polla-proyecta:testIamPermissions  
+ {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2021-05-05T23:21:59.161Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 05 May 2021 23:21:59 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=824","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-05-05T23:21:59.162Z] >>> HTTP REQUEST POST https://iam.googleapis.com/v1/projects/new-polla-proyecta/serviceAccounts/new-polla-proyecta@appspot.gserviceaccount.com:testIamPermissions  
+ {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2021-05-05T23:21:59.988Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 05 May 2021 23:22:00 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}

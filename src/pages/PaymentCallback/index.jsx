@@ -76,12 +76,12 @@ const PaymentCallback = () => {
 
   useEffect(async () => {
     const payment_id = query.get('payment_id');
-    console.log(payment_id);
-
-    const paymentResponse = await firebase
+    const paymentStatusResponse = await firebase
       .functions()
-      .httpsCallable('verifyPayment')({ payment_id });
-    const paymentStatus = paymentResponse.data;
+      .httpsCallable('verifyPayment')({
+      paymentId: payment_id,
+    });
+    const paymentStatus = paymentStatusResponse.data;
     setStatus(paymentStatus === 'approved' ? 'success' : 'error');
   }, []);
 

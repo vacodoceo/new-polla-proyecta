@@ -1,5 +1,6 @@
+/* eslint-disable react/display-name */
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import {
   Button,
   Container,
@@ -10,6 +11,7 @@ import {
 } from '@material-ui/core';
 
 import firebase from '../../firebase';
+import BetInstructions from './Instructions';
 import CreatePollaDialog from './CreatePollaDialog';
 import FeedbackDialog from '../../components/FeedbackDialog';
 
@@ -23,10 +25,16 @@ const steps = {
 const useStyles = makeStyles((theme) => ({
   container: {
     paddingTop: theme.spacing(2),
+    justifyContent: 'center',
+    display: 'grid',
+  },
+  nextButton: {
+    marginTop: theme.spacing(2),
   },
 }));
 
 const Bet = () => {
+  const history = useHistory();
   const [activeStep, setActiveStep] = useState(0);
   const [createPollaDialogOpen, setCreatePollaDialogOpen] = useState(false);
   const [pollaId, setPollaId] = useState();
@@ -51,6 +59,13 @@ const Bet = () => {
     }
   };
 
+  const stepsComponents = {
+    0: BetInstructions,
+    1: () => <div>asd</div>,
+    2: () => <div>asd</div>,
+    3: () => <div>asd</div>,
+  };
+
   const FeedbackDialogDescription = () => (
     <>
       Tu polla ya está registrada, pero recuerda que{' '}
@@ -61,16 +76,22 @@ const Bet = () => {
   );
 
   const FeedbackDialogActions = () => (
-    <Button
-      component={Link}
-      to={`/payment?pollas=${pollaId}`}
-      variant="contained"
-      color="primary"
-    >
-      Ir a pagar
-    </Button>
+    <>
+      <Button onClick={() => window.location.reload()} variant="contained">
+        Crear otra polla
+      </Button>
+      <Button
+        component={Link}
+        to={`/payment?pollas=${pollaId}`}
+        variant="contained"
+        color="primary"
+      >
+        Ir a pagar
+      </Button>
+    </>
   );
 
+  const CurrentStepComponent = stepsComponents[activeStep];
   const classes = useStyles();
   return (
     <Container maxWidth="lg" className={classes.container}>
@@ -81,7 +102,13 @@ const Bet = () => {
           </Step>
         ))}
       </Stepper>
-      <Button onClick={handleNextClick} variant="contained" color="primary">
+      <CurrentStepComponent />
+      <Button
+        onClick={handleNextClick}
+        variant="contained"
+        color="primary"
+        className={classes.nextButton}
+      >
         Siguiente
       </Button>
       <CreatePollaDialog
@@ -95,6 +122,7 @@ const Bet = () => {
         dialogOpen={feedbackDialogOpen}
         status="success"
         title="¡Polla creada!"
+        handleClose={() => history.push('/pollas')}
       />
     </Container>
   );
@@ -102,7 +130,7 @@ const Bet = () => {
 
 export default Bet;
 
-// 5416 7526 0258 2580
+//
 // 123
 // 11/25
 // 144746679-f94c1140-fb06-43e1-80d4-40915e341d72

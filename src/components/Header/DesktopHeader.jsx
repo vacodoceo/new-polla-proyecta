@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link as ReactLink } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import {
   Button,
@@ -110,7 +111,9 @@ const DesktopHeader = ({ navData }) => {
               marginTop: '48px',
             }}
           >
-            <MenuItem onClick={handleUserClose}>Mi perfil</MenuItem>
+            <MenuItem component={ReactLink} to="/pollas">
+              Mis Pollas
+            </MenuItem>
             <MenuItem onClick={handleLogout}>Cerrar sesión</MenuItem>
           </Menu>
         </>

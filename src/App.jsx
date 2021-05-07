@@ -8,6 +8,7 @@ import {
   Landing,
   Payment,
   PaymentCallback,
+  Pollas,
   SignIn,
   SignUp,
 } from './pages';
@@ -23,6 +24,8 @@ const App = () => {
       <main>
         <Switch>
           <Route path="/" exact component={Landing} />
+          <PublicRoute path="/sign-up" exact component={SignUp} />
+          <PublicRoute path="/sign-in" exact component={SignIn} />
           <PrivateRoute path="/bet" exact component={Bet} />
           <PrivateRoute
             path="/payment/callback"
@@ -30,8 +33,7 @@ const App = () => {
             component={PaymentCallback}
           />
           <PrivateRoute path="/payment" exact component={Payment} />
-          <PublicRoute path="/sign-up" exact component={SignUp} />
-          <PublicRoute path="/sign-in" exact component={SignIn} />
+          <PrivateRoute path="/pollas" exact component={Pollas} />
         </Switch>
       </main>
       <Footer />
