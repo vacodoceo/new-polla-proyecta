@@ -12,6 +12,9 @@ import {
 
 import firebase from '../../firebase';
 import BetInstructions from './Instructions';
+import BetGroupPhase from './GroupPhase';
+import BetQuarterFinals from './QuarterFinals';
+import BetFinals from './Finals';
 import CreatePollaDialog from './CreatePollaDialog';
 import FeedbackDialog from '../../components/FeedbackDialog';
 
@@ -28,8 +31,15 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     display: 'grid',
   },
-  nextButton: {
+  buttonWrapper: {
     marginTop: theme.spacing(2),
+    display: 'grid',
+    justifySelf: 'center',
+    gridTemplateColumns: 'auto auto',
+    gap: theme.spacing(2),
+  },
+  stepper: {
+    padding: theme.spacing(2, 0),
   },
 }));
 
@@ -61,9 +71,9 @@ const Bet = () => {
 
   const stepsComponents = {
     0: BetInstructions,
-    1: () => <div>asd</div>,
-    2: () => <div>asd</div>,
-    3: () => <div>asd</div>,
+    1: BetGroupPhase,
+    2: BetQuarterFinals,
+    3: BetFinals,
   };
 
   const FeedbackDialogDescription = () => (
@@ -95,7 +105,11 @@ const Bet = () => {
   const classes = useStyles();
   return (
     <Container maxWidth="lg" className={classes.container}>
-      <Stepper activeStep={activeStep} alternativeLabel>
+      <Stepper
+        activeStep={activeStep}
+        alternativeLabel
+        className={classes.stepper}
+      >
         {Object.entries(steps).map(([key, { label }]) => (
           <Step key={key}>
             <StepLabel>{label}</StepLabel>
@@ -103,14 +117,27 @@ const Bet = () => {
         ))}
       </Stepper>
       <CurrentStepComponent />
-      <Button
-        onClick={handleNextClick}
-        variant="contained"
-        color="primary"
-        className={classes.nextButton}
-      >
-        Siguiente
-      </Button>
+      <div className={classes.buttonWrapper}>
+        {activeStep > 0 && (
+          <Button
+            onClick={() => setActiveStep(activeStep - 1)}
+            variant="contained"
+            className={classes.nextButton}
+          >
+            Anterior
+          </Button>
+        )}
+
+        <Button
+          onClick={handleNextClick}
+          variant="contained"
+          color="primary"
+          className={classes.nextButton}
+        >
+          Siguiente
+        </Button>
+      </div>
+
       <CreatePollaDialog
         dialogOpen={createPollaDialogOpen}
         handleClose={() => setCreatePollaDialogOpen(false)}

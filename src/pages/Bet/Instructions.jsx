@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     background: 'white',
     padding: theme.spacing(2),
-    width: '120ch',
+    maxWidth: '120ch',
     display: 'grid',
     gap: theme.spacing(2),
   },

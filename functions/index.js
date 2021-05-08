@@ -32,8 +32,9 @@ exports.createPreference = functions.https.onCall(
       return;
     }
 
+    console.log('asd', context.rawRequest.headers.origin);
+
     const validPollas = await Promise.all(pollas.map(validatePolla));
-    console.log(validPollas);
 
     if (!validPollas.every(Boolean)) {
       return;
@@ -49,9 +50,9 @@ exports.createPreference = functions.https.onCall(
         },
       ],
       back_urls: {
-        success: `${process.env.FRONTEND_URL}/payment/callback`,
-        pending: `${process.env.FRONTEND_URL}/payment/callback`,
-        failure: `${process.env.FRONTEND_URL}/payment/callback`,
+        success: `${context.rawRequest.headers.origin}/payment/callback`,
+        pending: `${context.rawRequest.headers.origin}/payment/callback`,
+        failure: `${context.rawRequest.headers.origin}/payment/callback`,
       },
       payment_methods: {
         excluded_payment_types: [{ id: 'ticket' }, { id: 'atm' }],
@@ -103,7 +104,6 @@ const validatePolla = async (pollaId) => {
   try {
     const pollaDoc = app.firestore().doc(`pollas/${pollaId}`);
     const pollaSnapshot = await pollaDoc.get();
-    console.log(pollaSnapshot, pollaSnapshot.data());
     return pollaSnapshot.data().status === 'unpaid';
   } catch (err) {
     console.log(err);
