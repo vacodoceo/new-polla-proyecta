@@ -17,6 +17,12 @@ import BetQuarterFinals from './QuarterFinals';
 import BetFinals from './Finals';
 import CreatePollaDialog from './CreatePollaDialog';
 import FeedbackDialog from '../../components/FeedbackDialog';
+import { groups } from '../../utils/countries';
+
+const initResults = {
+  A: groups.A.map((country) => country.value),
+  B: groups.B.map((country) => country.value),
+};
 
 const steps = {
   instructions: { label: 'Instrucciones' },
@@ -28,7 +34,7 @@ const steps = {
 const useStyles = makeStyles((theme) => ({
   container: {
     paddingTop: theme.spacing(2),
-    justifyContent: 'center',
+    justifyItems: 'center',
     display: 'grid',
   },
   buttonWrapper: {
@@ -40,12 +46,14 @@ const useStyles = makeStyles((theme) => ({
   },
   stepper: {
     padding: theme.spacing(2, 0),
+    width: 'clamp(280px, 100%, 600px)',
   },
 }));
 
 const Bet = () => {
   const history = useHistory();
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep, setActiveStep] = useState(1);
+  const [results, setResults] = useState(initResults);
   const [createPollaDialogOpen, setCreatePollaDialogOpen] = useState(false);
   const [pollaId, setPollaId] = useState();
   const [feedbackDialogOpen, setFeedbackDialogOpen] = useState(false);
@@ -53,9 +61,7 @@ const Bet = () => {
   const createPolla = async (name) => {
     const pollaIdResponse = await firebase
       .functions()
-      .httpsCallable('createPolla')({
-      name,
-    });
+      .httpsCallable('createPolla')({ name });
     setPollaId(pollaIdResponse.data);
     setCreatePollaDialogOpen(false);
     setFeedbackDialogOpen(true);
@@ -69,13 +75,27 @@ const Bet = () => {
     }
   };
 
-  const stepsComponents = {
-    0: BetInstructions,
-    1: BetGroupPhase,
-    2: BetQuarterFinals,
-    3: BetFinals,
+  const handleGroupOrderChange = (group, groupOrder) => {
+    setResults({ ...results, [group]: groupOrder });
   };
 
+  const stepsComponents = {
+    0: {
+      component: BetInstructions,
+      props: {},
+    },
+    1: {
+      component: BetGroupPhase,
+      props: {
+        defaultOrder: { A: results.A, B: results.B },
+        handleGroupOrderChange,
+      },
+    },
+    2: { component: BetQuarterFinals, props: {} },
+    3: { component: BetFinals, props: {} },
+  };
+
+  // Feedback component props
   const FeedbackDialogDescription = () => (
     <>
       Tu polla ya está registrada, pero recuerda que{' '}
@@ -101,7 +121,8 @@ const Bet = () => {
     </>
   );
 
-  const CurrentStepComponent = stepsComponents[activeStep];
+  const CurrentStepComponent = stepsComponents[activeStep].component;
+  const currentStepProps = stepsComponents[activeStep].props;
   const classes = useStyles();
   return (
     <Container maxWidth="lg" className={classes.container}>
@@ -116,7 +137,7 @@ const Bet = () => {
           </Step>
         ))}
       </Stepper>
-      <CurrentStepComponent />
+      <CurrentStepComponent {...currentStepProps} />
       <div className={classes.buttonWrapper}>
         {activeStep > 0 && (
           <Button

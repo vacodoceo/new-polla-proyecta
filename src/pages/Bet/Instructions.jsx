@@ -1,6 +1,6 @@
 import { makeStyles, Paper, Typography } from '@material-ui/core';
 
-const instructionsSteps = {
+export const instructionsSteps = {
   'Fase de Grupos':
     'Debes ingresar los resultados de la fase de grupo, para ello debes agarrar y arrastrar los equipos de cada grupo hasta que queden en el orden que creas.',
   'Cuartos de Final':

@@ -115,7 +115,7 @@ const Pollas = () => {
               <TableCell>Nombre</TableCell>
               <TableCell>Identificador único</TableCell>
               <TableCell>Fecha de creación</TableCell>
-              <TableCell>Estado</TableCell>
+              <TableCell align="center">Estado</TableCell>
               <TableCell align="right">Puntaje</TableCell>
               <TableCell padding="checkbox">
                 <Checkbox
@@ -141,7 +141,7 @@ const Pollas = () => {
                 <TableCell>
                   {moment(polla.createdAt.toDate()).format('L LT')}
                 </TableCell>
-                <TableCell>
+                <TableCell align="center">
                   {polla.status === 'paid' ? (
                     <Chip label="Pagada" className={classes.paid} />
                   ) : (
