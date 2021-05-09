@@ -21,9 +21,13 @@ const reorder = (list, startIndex, endIndex) => {
   return result;
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     background: 'white',
+    display: 'flex',
+  },
+  stading: {
+    height: theme.spacing(7),
   },
 }));
 
@@ -60,12 +64,30 @@ const OrderableGroup = ({
   const classes = useStyles();
   return (
     <Paper className={classes.root}>
+      <List
+        subheader={
+          <ListSubheader component="div" disableSticky>
+            #
+          </ListSubheader>
+        }
+      >
+        {order.map((_, index) => (
+          <ListItem key={index} className={classes.stading}>
+            <ListItemText primary={index + 1 + '°'} />
+          </ListItem>
+        ))}
+      </List>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
           {(providedDroppable) => (
             <List
-              subheader={<ListSubheader component="div">{title}</ListSubheader>}
+              subheader={
+                <ListSubheader component="div" disableSticky>
+                  {title}
+                </ListSubheader>
+              }
               ref={providedDroppable.innerRef}
+              style={{ flex: 1 }}
             >
               {order.map((countryValue, index) => (
                 <Draggable
@@ -102,6 +124,7 @@ const OrderableGroup = ({
                   )}
                 </Draggable>
               ))}
+              {providedDroppable.placeholder}
             </List>
           )}
         </Droppable>

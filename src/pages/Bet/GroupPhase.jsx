@@ -7,10 +7,10 @@ import { groups } from '../../utils/countries';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 240px))',
-    width: '100%',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+    width: 'clamp(240px, 100%, 720px)',
     justifyContent: 'center',
-    gap: theme.spacing(4),
+    gap: theme.spacing(2),
   },
 }));
 
