@@ -21,7 +21,7 @@ const reorder = (list, startIndex, endIndex) => {
   return result;
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     background: 'white',
   },
