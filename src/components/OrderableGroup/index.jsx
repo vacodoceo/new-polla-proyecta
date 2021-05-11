@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Avatar,
@@ -11,7 +10,8 @@ import {
   Paper,
 } from '@material-ui/core';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import _ from 'lodash';
+
+import { labels } from '../../utils/countries';
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     background: 'white',
     display: 'flex',
   },
-  stading: {
+  standing: {
     height: theme.spacing(7),
   },
 }));
@@ -40,15 +40,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   }),
 });
 
-const OrderableGroup = ({
-  title,
-  id,
-  defaultOrder,
-  options,
-  handleGroupOrderChange,
-}) => {
-  const [order, setOrder] = useState(defaultOrder);
-
+const OrderableGroup = ({ title, id, order, handleChange }) => {
   const onDragEnd = (result) => {
     // dropped outside the list
     if (!result.destination) {
@@ -57,8 +49,7 @@ const OrderableGroup = ({
 
     const items = reorder(order, result.source.index, result.destination.index);
 
-    handleGroupOrderChange(id, items);
-    setOrder(items);
+    handleChange(id, items);
   };
 
   const classes = useStyles();
@@ -72,7 +63,7 @@ const OrderableGroup = ({
         }
       >
         {order.map((_, index) => (
-          <ListItem key={index} className={classes.stading}>
+          <ListItem key={index} className={classes.standing}>
             <ListItemText primary={index + 1 + '°'} />
           </ListItem>
         ))}
@@ -112,14 +103,7 @@ const OrderableGroup = ({
                           src={`${process.env.PUBLIC_URL}/images/${countryValue}.png`}
                         />
                       </ListItemAvatar>
-                      <ListItemText
-                        primary={
-                          _.find(
-                            options,
-                            (country) => country.value === countryValue
-                          )?.label
-                        }
-                      />
+                      <ListItemText primary={labels[countryValue]} />
                     </ListItem>
                   )}
                 </Draggable>
@@ -134,10 +118,9 @@ const OrderableGroup = ({
 };
 
 OrderableGroup.propTypes = {
-  defaultOrder: PropTypes.array.required,
-  handleGroupOrderChange: PropTypes.func.required,
-  id: PropTypes.string.required,
-  options: PropTypes.array.required,
+  order: PropTypes.array.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
   title: PropTypes.string,
 };
 

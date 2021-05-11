@@ -2,19 +2,17 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core';
 import OrderableGroup from '../../components/OrderableGroup';
 
-import { groups } from '../../utils/countries';
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
     width: 'clamp(240px, 100%, 720px)',
     justifyContent: 'center',
-    gap: theme.spacing(2),
+    gap: theme.spacing(4),
   },
 }));
 
-const BetGroupPhase = ({ defaultOrder, handleGroupOrderChange }) => {
+const BetGroupPhase = ({ order, handleGroupOrderChange }) => {
   const classes = useStyles();
 
   return (
@@ -22,24 +20,22 @@ const BetGroupPhase = ({ defaultOrder, handleGroupOrderChange }) => {
       <OrderableGroup
         title="Grupo A"
         id="A"
-        defaultOrder={defaultOrder.A}
-        options={groups.A}
-        handleGroupOrderChange={handleGroupOrderChange}
+        order={order.A}
+        handleChange={handleGroupOrderChange}
       />
       <OrderableGroup
         title="Grupo B"
         id="B"
-        defaultOrder={defaultOrder.B}
-        options={groups.B}
-        handleGroupOrderChange={handleGroupOrderChange}
+        order={order.B}
+        handleChange={handleGroupOrderChange}
       />
     </div>
   );
 };
 
 BetGroupPhase.propTypes = {
-  defaultOrder: PropTypes.object.required,
-  handleGroupOrderChange: PropTypes.func.required,
+  order: PropTypes.object.isRequired,
+  handleGroupOrderChange: PropTypes.func.isRequired,
 };
 
 export default BetGroupPhase;

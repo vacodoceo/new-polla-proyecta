@@ -1,4 +1,4 @@
-import { makeStyles, Paper, Typography } from '@material-ui/core';
+import { makeStyles, Typography } from '@material-ui/core';
 
 export const instructionsSteps = {
   'Fase de Grupos':
@@ -15,7 +15,6 @@ export const instructionsSteps = {
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    background: 'white',
     padding: theme.spacing(2),
     maxWidth: '120ch',
     display: 'grid',
@@ -26,7 +25,10 @@ const useStyles = makeStyles((theme) => ({
 const BetInstructions = () => {
   const classes = useStyles();
   return (
-    <Paper className={classes.paper}>
+    <div className={classes.paper}>
+      <Typography variant="h4" align="center">
+        Instrucciones 🧐
+      </Typography>
       {Object.entries(instructionsSteps).map(([title, description]) => (
         <div key={title}>
           <Typography variant="h5" className={classes.title}>
@@ -35,7 +37,7 @@ const BetInstructions = () => {
           <Typography variant="body2">{description}</Typography>
         </div>
       ))}
-    </Paper>
+    </div>
   );
 };
 

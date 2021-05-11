@@ -10,29 +10,30 @@ mercadopago.configure({
   access_token: process.env.MERCADOPAGO_ACCESS_TOKEN,
 });
 
-exports.createPolla = functions.https.onCall(async ({ name }, context) => {
-  if (!context.auth || _.isEmpty(name)) {
-    return;
+exports.createPolla = functions.https.onCall(
+  async ({ name, results }, context) => {
+    if (!context.auth || _.isEmpty(name)) {
+      return;
+    }
+
+    const docRef = await admin.firestore().collection('pollas').add({
+      name,
+      results,
+      userId: context.auth.uid,
+      status: 'unpaid',
+      score: 0,
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    });
+
+    return docRef.id;
   }
-
-  const docRef = await app.firestore().collection('pollas').add({
-    name,
-    userId: context.auth.uid,
-    status: 'unpaid',
-    score: 0,
-    createdAt: admin.firestore.FieldValue.serverTimestamp(),
-  });
-
-  return docRef.id;
-});
+);
 
 exports.createPreference = functions.https.onCall(
   async ({ pollas }, context) => {
     if (!context.auth || _.isEmpty(pollas)) {
       return;
     }
-
-    console.log('asd', context.rawRequest.headers.origin);
 
     const validPollas = await Promise.all(pollas.map(validatePolla));
 
