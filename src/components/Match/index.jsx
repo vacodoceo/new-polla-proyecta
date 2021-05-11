@@ -27,14 +27,19 @@ const Match = (props) => {
   const { name, firstCountry, secondCountry, handleChange } = props;
 
   const handleScoreChange = (country) => (score) => {
-    handleChange({ ...props, [country]: { ...props[country], score } });
+    handleChange({
+      name,
+      firstCountry,
+      secondCountry,
+      [country]: { ...props[country], score },
+    });
   };
 
   const handleWinnerChange = (country) => {
     const winner = country;
     const loser = country === 'firstCountry' ? 'secondCountry' : 'firstCountry';
     handleChange({
-      ...props,
+      name,
       [winner]: { ...props[winner], winner: true },
       [loser]: { ...props[loser], winner: false },
     });

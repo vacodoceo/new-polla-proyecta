@@ -216,7 +216,12 @@ const Bet = () => {
       </Stepper>
       {getStepContent()}
       {isStepIncomplete && (
-        <Typography variant="body1" color="error" className={classes.error}>
+        <Typography
+          variant="body1"
+          color="error"
+          className={classes.error}
+          align="center"
+        >
           ¡Debes seleccionar un ganador para cada partido antes de seguir a la
           siguiente fase!
         </Typography>
