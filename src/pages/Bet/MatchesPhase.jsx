@@ -4,11 +4,11 @@ import Match from '../../components/Match';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    padding: theme.spacing(1),
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-    width: 'clamp(240px, 100%, 720px)',
-    gap: theme.spacing(4),
+    gridTemplateColumns: 'repeat(auto-fit, minmax(296px, 360px))',
+    justifyContent: 'center',
+    width: 'clamp(296px, 100%, 760px)',
+    gap: theme.spacing(2),
   },
 }));
 

@@ -26,15 +26,15 @@ const steps = ['Fase de grupos', 'Cuartos de final', 'Semifinal', 'Final'];
 const useStyles = makeStyles((theme) => ({
   button: {
     width: '18ch',
+    margin: theme.spacing(1, 1),
   },
   buttonWrapper: {
-    display: 'grid',
-    justifySelf: 'center',
-    gridTemplateColumns: 'repeat(3, auto)',
-    gap: theme.spacing(2),
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
   },
   container: {
-    paddingTop: theme.spacing(4),
+    padding: theme.spacing(4, 1, 0),
     justifyItems: 'center',
     display: 'grid',
     gap: theme.spacing(2),

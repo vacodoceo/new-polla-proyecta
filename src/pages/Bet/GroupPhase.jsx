@@ -5,10 +5,11 @@ import OrderableGroup from '../../components/OrderableGroup';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 320px))',
     width: 'clamp(240px, 100%, 720px)',
     justifyContent: 'center',
     gap: theme.spacing(4),
+    padding: theme.spacing(1, 0),
   },
 }));
 
