@@ -53,6 +53,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'grid',
     gap: theme.spacing(2),
   },
+  tableWrapper: {
+    width: '100%',
+    overflow: 'auto',
+  },
   unpaid: {
     background: red[700],
     color: 'white',
@@ -109,57 +113,60 @@ const Pollas = () => {
           <em>PAGAR</em>.
         </Typography>
 
-        <Table className={classes.table} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Nombre</TableCell>
-              <TableCell>Identificador único</TableCell>
-              <TableCell>Fecha de creación</TableCell>
-              <TableCell align="center">Estado</TableCell>
-              <TableCell align="right">Puntaje</TableCell>
-              <TableCell padding="checkbox">
-                <Checkbox
-                  color="primary"
-                  indeterminate={
-                    selectedPollas.length > 0 &&
-                    selectedPollas.length < pollas.length
-                  }
-                  checked={
-                    selectedPollas.length > 0 &&
-                    selectedPollas.length === pollas.length
-                  }
-                  onChange={handleSelectAllClick}
-                />
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {pollas?.map((polla) => (
-              <TableRow key={polla.id}>
-                <TableCell>{polla.name}</TableCell>
-                <TableCell className={classes.code}>{polla.id}</TableCell>
-                <TableCell>
-                  {moment(polla.createdAt.toDate()).format('L LT')}
-                </TableCell>
-                <TableCell align="center">
-                  {polla.status === 'paid' ? (
-                    <Chip label="Pagada" className={classes.paid} />
-                  ) : (
-                    <Chip label="No pagada" className={classes.unpaid} />
-                  )}
-                </TableCell>
-                <TableCell align="right">{polla.score}</TableCell>
+        <div className={classes.tableWrapper}>
+          <Table className={classes.table} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Nombre</TableCell>
+                <TableCell>Identificador único</TableCell>
+                <TableCell>Fecha de creación</TableCell>
+                <TableCell align="center">Estado</TableCell>
+                <TableCell align="right">Puntaje</TableCell>
                 <TableCell padding="checkbox">
                   <Checkbox
                     color="primary"
-                    checked={selectedPollas.includes(polla.id)}
-                    onChange={() => handleSelectClick(polla.id)}
+                    indeterminate={
+                      selectedPollas.length > 0 &&
+                      selectedPollas.length < pollas.length
+                    }
+                    checked={
+                      selectedPollas.length > 0 &&
+                      selectedPollas.length === pollas.length
+                    }
+                    onChange={handleSelectAllClick}
                   />
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHead>
+            <TableBody>
+              {pollas?.map((polla) => (
+                <TableRow key={polla.id}>
+                  <TableCell>{polla.name}</TableCell>
+                  <TableCell className={classes.code}>{polla.id}</TableCell>
+                  <TableCell>
+                    {moment(polla.createdAt.toDate()).format('L LT')}
+                  </TableCell>
+                  <TableCell align="center">
+                    {polla.status === 'paid' ? (
+                      <Chip label="Pagada" className={classes.paid} />
+                    ) : (
+                      <Chip label="No pagada" className={classes.unpaid} />
+                    )}
+                  </TableCell>
+                  <TableCell align="right">{polla.score}</TableCell>
+                  <TableCell padding="checkbox">
+                    <Checkbox
+                      color="primary"
+                      checked={selectedPollas.includes(polla.id)}
+                      onChange={() => handleSelectClick(polla.id)}
+                    />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+
         <Tooltip
           title={payError}
           aria-label="pay"
