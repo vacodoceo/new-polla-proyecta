@@ -27,7 +27,7 @@ jobs:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NEW_POLLA_PROYECTA }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NEW_POLLA_PROYECTA_PROD }}'
           channelId: live
           projectId: new-polla-proyecta-prod
         env:
