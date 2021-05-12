@@ -7,7 +7,7 @@ const app = require('./firebase');
 require('dotenv').config();
 
 mercadopago.configure({
-  access_token: process.env.MERCADOPAGO_ACCESS_TOKEN,
+  access_token: functions.config().mercadopago.access_token,
 });
 
 exports.createPolla = functions.https.onCall(
@@ -35,6 +35,12 @@ exports.createPreference = functions.https.onCall(
       return;
     }
 
+    const getPrice = (quantity) => {
+      if (quantity < 2) return 3000;
+      else if (quantity < 7) return 2500;
+      return 2000;
+    };
+
     const validPollas = await Promise.all(pollas.map(validatePolla));
 
     if (!validPollas.every(Boolean)) {
@@ -46,7 +52,7 @@ exports.createPreference = functions.https.onCall(
         {
           title: 'Pollamérica - Proyecta',
           description: pollas.toString(),
-          unit_price: 1000,
+          unit_price: getPrice(pollas.length),
           quantity: pollas.length,
         },
       ],

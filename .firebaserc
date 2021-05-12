@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "new-polla-proyecta"
+    "default": "new-polla-proyecta",
+    "production": "new-polla-proyecta-prod"
   }
 }
