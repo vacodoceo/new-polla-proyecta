@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import {
   Avatar,
   Button,
@@ -121,7 +121,12 @@ const PaymentCallback = () => {
         >
           {feedbackDescription[status]}
         </Typography>
-        <Button variant="contained" color="primary">
+        <Button
+          component={Link}
+          to="/pollas"
+          variant="contained"
+          color="primary"
+        >
           Ir a mis pollas
         </Button>
       </div>

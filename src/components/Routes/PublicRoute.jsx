@@ -8,12 +8,15 @@ import Loading from '../Loading';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const [user, loading] = useAuthState(firebase.auth());
+  const redirect = window.sessionStorage.getItem('authRedirect');
 
   useEffect(() => {
-    if (user && !user.displayName) {
-      const displayName = window.sessionStorage.getItem('displayName');
-      user.updateProfile({ displayName }).then(window.location.reload());
-      window.sessionStorage.clear();
+    if (user) {
+      if (!user.displayName) {
+        const displayName = window.sessionStorage.getItem('displayName');
+        user.updateProfile({ displayName }).then(window.location.reload());
+        window.sessionStorage.removeItem('displayName');
+      }
     }
   }, [user]);
 
@@ -25,7 +28,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        user ? <Redirect to="/" /> : <Component {...props} />
+        user ? <Redirect to={redirect || '/'} /> : <Component {...props} />
       }
     />
   );

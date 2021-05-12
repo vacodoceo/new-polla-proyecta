@@ -12,16 +12,22 @@ const verifyPayment = async (paymentId) => {
 
   const pollasId =
     response.data.additional_info.items[0].description.split(',');
-  const updatePollasPromises = pollasId.map(payPolla);
+  const price = Number(response.data.additional_info.items[0].unit_price);
+  const updatePollasPromises = pollasId.map((pollaId) =>
+    payPolla(pollaId, price)
+  );
   await Promise.all([updatePollasPromises]);
 
   return response.data.status;
 };
 
-const payPolla = async (pollaId) => {
+const payPolla = async (pollaId, price) => {
   try {
     const pollaDoc = app.firestore().doc(`pollas/${pollaId}`);
-    const updateResult = await pollaDoc.update({ status: 'paid' });
+    const updateResult = await pollaDoc.update({
+      status: 'paid',
+      price,
+    });
     return updateResult;
   } catch (err) {
     console.log(err);

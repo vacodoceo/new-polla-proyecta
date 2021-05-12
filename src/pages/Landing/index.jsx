@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
       height: '100%',
       zIndex: 1,
-      opacity: 0.15,
+      opacity: 0.5,
       backgroundImage: `url(${landingBackground})`,
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center',
@@ -146,7 +146,12 @@ const Landing = () => {
           >
             La Gran Pollamérica
           </Typography>
-          <Typography variant="h5" align="center" paragraph>
+          <Typography
+            variant="h5"
+            align="center"
+            paragraph
+            style={{ color: 'rgba(0, 0, 0, .93)' }}
+          >
             Un sitio en el que podrás ganar premios apostando por los resultados
             de la Copa América, al mismo tiempo que estarás ayudando a disminuir
             la pobreza multidimensional en Chile.
