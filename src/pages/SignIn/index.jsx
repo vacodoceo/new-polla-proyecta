@@ -1,15 +1,18 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Button,
   Container,
   Link,
+  Snackbar,
   TextField,
   Typography,
 } from '@material-ui/core';
 import GoogleButton from 'react-google-button';
+import { red } from '@material-ui/core/colors';
 
 import firebase from '../../firebase';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -38,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(2),
     gap: theme.spacing(2),
   },
+  snackbar: {
+    background: red[500],
+  },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
@@ -47,14 +53,40 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignIn = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [signInWithEmailAndPassword, , , error] = useSignInWithEmailAndPassword(
+    firebase.auth()
+  );
+  const [snackbarMessage, setSnackbarMessage] = useState();
   const handleGoogleLogin = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(provider);
   };
 
+  useEffect(() => {
+    if (error) {
+      setSnackbarMessage(error.message);
+    }
+  }, [error]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    signInWithEmailAndPassword(email, password);
+  };
+
   const classes = useStyles();
   return (
     <>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={!!snackbarMessage}
+        autoHideDuration={6000}
+        onClose={() => setSnackbarMessage()}
+        message={snackbarMessage}
+        ContentProps={{ className: classes.snackbar }}
+      />
+
       <Typography
         component="h1"
         variant="h4"
@@ -75,8 +107,10 @@ const SignIn = () => {
             O si prefieres el camino largo...
           </Typography>
 
-          <form className={classes.form}>
+          <form className={classes.form} onSubmit={handleSubmit}>
             <TextField
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               variant="outlined"
               margin="normal"
               required
@@ -88,6 +122,8 @@ const SignIn = () => {
               size="small"
             />
             <TextField
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               variant="outlined"
               margin="normal"
               required
