@@ -1,15 +1,21 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 import {
   Button,
   Card,
   CardContent,
   CardHeader,
+  Chip,
   Container,
   Grid,
   Typography,
 } from '@material-ui/core';
+import { MonetizationOn as MoneyIcon } from '@material-ui/icons';
 import { lightBlue } from '@material-ui/core/colors';
+import CountUp from 'react-countup';
 
+import firebase from '../../firebase';
 import { makeStyles } from '@material-ui/core/styles';
 import landingBackground from '../../assets/images/landing.jpg';
 import thirdPlaceImage from '../../assets/images/thirdPlace.png';
@@ -33,6 +39,9 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '80%',
     maxHeight: '120px',
   },
+  bountyChip: {
+    margin: theme.spacing(0, ' auto', 2),
+  },
   cardHeader: {
     backgroundColor: lightBlue[100],
   },
@@ -45,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 
   heroContent: {
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(6, 0, 6),
+    padding: theme.spacing(2, 0, 4),
     marginBottom: theme.spacing(4),
     position: 'relative',
     overflow: 'hidden',
@@ -125,6 +134,20 @@ const prizes = [
 
 const Landing = () => {
   const classes = useStyles();
+  const [bounty, setBounty] = useState(0);
+  const [pollasData] = useCollectionData(
+    firebase.firestore().collection('pollas')
+  );
+
+  useEffect(() => {
+    if (pollasData) {
+      const newBounty = pollasData.reduce(
+        (prev, polla) => prev + (polla.price ?? 0),
+        0
+      );
+      setBounty(newBounty);
+    }
+  }, [pollasData]);
 
   return (
     <>
@@ -134,8 +157,20 @@ const Landing = () => {
           style={{
             zIndex: 2,
             position: 'relative',
+            display: 'flex',
+            flexDirection: 'column',
           }}
         >
+          <Chip
+            color="primary"
+            icon={<MoneyIcon />}
+            className={classes.bountyChip}
+            label={
+              <div>
+                Monto recaudado: $<CountUp end={bounty} separator="." />
+              </div>
+            }
+          />
           <Typography
             component="h1"
             variant="h2"
