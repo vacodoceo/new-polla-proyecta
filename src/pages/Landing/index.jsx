@@ -8,8 +8,10 @@ import {
   Grid,
   Typography,
 } from '@material-ui/core';
+import { lightBlue } from '@material-ui/core/colors';
 
 import { makeStyles } from '@material-ui/core/styles';
+import landingBackground from '../../assets/images/landing.jpg';
 import thirdPlaceImage from '../../assets/images/thirdPlace.png';
 import secondPlaceImage from '../../assets/images/secondPlace.png';
 import firstPlaceImage from '../../assets/images/firstPlace.png';
@@ -26,17 +28,13 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
     fill: 'white',
   },
-
   biggerPrizeImage: {
+    marginTop: theme.spacing(1),
     maxWidth: '80%',
-    maxHeight: '160px',
+    maxHeight: '120px',
   },
-
   cardHeader: {
-    backgroundColor:
-      theme.palette.type === 'light'
-        ? theme.palette.grey[200]
-        : theme.palette.grey[700],
+    backgroundColor: lightBlue[100],
   },
   cardPricing: {
     display: 'flex',
@@ -44,16 +42,28 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'baseline',
     marginBottom: theme.spacing(2),
   },
-  footer: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(4),
-  },
-  headerTitle: {
-    color: 'white',
-  },
+
   heroContent: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(6, 0, 6),
+    marginBottom: theme.spacing(4),
+    position: 'relative',
+    overflow: 'hidden',
+
+    '&:before': {
+      content: "' '",
+      position: 'absolute',
+      left: 0,
+      top: 0,
+      width: '100%',
+      height: '100%',
+      zIndex: 1,
+      opacity: 0.15,
+      backgroundImage: `url(${landingBackground})`,
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+    },
   },
   heroButtons: {
     marginTop: theme.spacing(4),
@@ -83,27 +93,32 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    background: 'white',
   },
   prizeImage: {
+    marginTop: theme.spacing(1),
     maxWidth: '80%',
-    maxHeight: '120px',
+    maxHeight: '80px',
   },
 }));
 
-const tiers = [
+const prizes = [
   {
     title: 'Segundo lugar',
-    price: 20000,
+    amount: 15000,
+    extra: '+ 2% del pozo total',
     image: secondPlaceImage,
   },
   {
     title: 'Primer lugar',
-    price: 30000,
+    amount: 30000,
+    extra: '+ 5% del pozo total',
     image: firstPlaceImage,
   },
   {
     title: 'Tercer lugar',
-    price: 10000,
+    amount: 5000,
+    extra: '+ premio sorpresa',
     image: thirdPlaceImage,
   },
 ];
@@ -114,22 +129,24 @@ const Landing = () => {
   return (
     <>
       <div className={classes.heroContent}>
-        <Container maxWidth="sm">
+        <Container
+          maxWidth="sm"
+          style={{
+            zIndex: 2,
+            position: 'relative',
+          }}
+        >
           <Typography
             component="h1"
             variant="h2"
             align="center"
             color="textPrimary"
+            style={{ fontWeight: 400 }}
             gutterBottom
           >
             La Gran Pollamérica
           </Typography>
-          <Typography
-            variant="h5"
-            align="center"
-            color="textSecondary"
-            paragraph
-          >
+          <Typography variant="h5" align="center" paragraph>
             Un sitio en el que podrás ganar premios apostando por los resultados
             de la Copa América, al mismo tiempo que estarás ayudando a disminuir
             la pobreza multidimensional en Chile.
@@ -144,7 +161,7 @@ const Landing = () => {
                 </Link>
               </Grid>
               <Grid item>
-                <Button variant="outlined" color="primary">
+                <Button variant="contained" color="secondary">
                   ¿Por qué debería participar?
                 </Button>
               </Grid>
@@ -154,26 +171,27 @@ const Landing = () => {
       </div>
       <Container maxWidth="md" component="main">
         <Grid container spacing={5} alignItems="flex-end">
-          {tiers.map((tier) => (
-            // Enterprise card is full width at sm breakpoint
-            <Grid item key={tier.title} xs={12} md={4}>
+          {prizes.map((prize) => (
+            <Grid item key={prize.title} xs={12} md={4}>
               <Card>
                 <CardHeader
-                  title={tier.title}
+                  title={prize.title}
                   titleTypographyProps={{ align: 'center' }}
                   subheaderTypographyProps={{ align: 'center' }}
                   className={classes.cardHeader}
                 />
                 <CardContent className={classes.prizeCardContent}>
-                  <div className={classes.cardPricing}>
-                    <Typography component="h2" variant="h3" color="textPrimary">
-                      ${tier.price.toLocaleString('de-DE')}
-                    </Typography>
-                  </div>
+                  <Typography component="h2" variant="h3" color="textPrimary">
+                    ${prize.amount.toLocaleString('de-DE')}
+                  </Typography>
+                  <Typography variant="h6" color="textSecondary" align="center">
+                    {prize.extra}
+                  </Typography>
+
                   <img
-                    src={tier.image}
+                    src={prize.image}
                     className={
-                      tier.title === 'Primer lugar'
+                      prize.title === 'Primer lugar'
                         ? classes.biggerPrizeImage
                         : classes.prizeImage
                     }

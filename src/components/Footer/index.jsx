@@ -12,7 +12,11 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       Made with 💙 by{' '}
-      <Link color="inherit" href="https://github.com/vacodoceo">
+      <Link
+        color="inherit"
+        href="https://github.com/vacodoceo"
+        style={{ textDecoration: 'underline' }}
+      >
         @vacodoceo
       </Link>{' '}
       for Proyecta
@@ -25,7 +29,15 @@ const Footer = () => {
   return (
     <footer className={classes.footer}>
       <Typography variant="subtitle1" align="center" component="p">
-        ¡Visítanos también en nuestras redes sociales!
+        ¡Visítanos también en Instagram{' '}
+        <Link
+          color="inherit"
+          href="https://www.instagram.com/proyectauc/?hl=es-la"
+          style={{ textDecoration: 'underline' }}
+        >
+          @proyectauc
+        </Link>
+        !
       </Typography>
       <Copyright />
     </footer>
