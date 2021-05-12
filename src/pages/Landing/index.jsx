@@ -3,40 +3,46 @@ import {
   Button,
   Card,
   CardContent,
-  CardMedia,
+  CardHeader,
   Container,
   Grid,
   Typography,
 } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
+import thirdPlaceImage from '../../assets/images/thirdPlace.png';
+import secondPlaceImage from '../../assets/images/secondPlace.png';
+import firstPlaceImage from '../../assets/images/firstPlace.png';
 
 const useStyles = makeStyles((theme) => ({
+  '@global': {
+    ul: {
+      margin: 0,
+      padding: 0,
+      listStyle: 'none',
+    },
+  },
   icon: {
     marginRight: theme.spacing(2),
     fill: 'white',
   },
-  heroContent: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(6, 0, 6),
+
+  biggerPrizeImage: {
+    maxWidth: '80%',
+    maxHeight: '160px',
   },
-  heroButtons: {
-    marginTop: theme.spacing(4),
+
+  cardHeader: {
+    backgroundColor:
+      theme.palette.type === 'light'
+        ? theme.palette.grey[200]
+        : theme.palette.grey[700],
   },
-  cardGrid: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
-  },
-  card: {
-    height: '100%',
+  cardPricing: {
     display: 'flex',
-    flexDirection: 'column',
-  },
-  cardMedia: {
-    paddingTop: '56.25%', // 16:9
-  },
-  cardContent: {
-    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'baseline',
+    marginBottom: theme.spacing(2),
   },
   footer: {
     backgroundColor: theme.palette.background.paper,
@@ -45,9 +51,62 @@ const useStyles = makeStyles((theme) => ({
   headerTitle: {
     color: 'white',
   },
+  heroContent: {
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing(6, 0, 6),
+  },
+  heroButtons: {
+    marginTop: theme.spacing(4),
+  },
+  price: {
+    fontWeight: 500,
+  },
+  priceWrapper: {
+    flexGrow: 1,
+    margin: theme.spacing(1, 2),
+  },
+  pricing: {
+    margin: theme.spacing(4, 0, 0),
+    padding: theme.spacing(2),
+    background: theme.palette.primary.main,
+  },
+  pricingGrid: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    maxWidth: '900px',
+    margin: 'auto',
+    flexWrap: 'wrap',
+  },
+  prizeCardContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  prizeImage: {
+    maxWidth: '80%',
+    maxHeight: '120px',
+  },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6];
+const tiers = [
+  {
+    title: 'Segundo lugar',
+    price: 20000,
+    image: secondPlaceImage,
+  },
+  {
+    title: 'Primer lugar',
+    price: 30000,
+    image: firstPlaceImage,
+  },
+  {
+    title: 'Tercer lugar',
+    price: 10000,
+    image: thirdPlaceImage,
+  },
+];
 
 const Landing = () => {
   const classes = useStyles();
@@ -93,30 +152,90 @@ const Landing = () => {
           </div>
         </Container>
       </div>
-      <Container className={classes.cardGrid} maxWidth="md">
-        <Grid container spacing={4}>
-          {cards.map((card) => (
-            <Grid item key={card} xs={12} sm={6} md={4}>
-              <Card className={classes.card}>
-                <CardMedia
-                  className={classes.cardMedia}
-                  image="https://source.unsplash.com/random"
-                  title="Image title"
+      <Container maxWidth="md" component="main">
+        <Grid container spacing={5} alignItems="flex-end">
+          {tiers.map((tier) => (
+            // Enterprise card is full width at sm breakpoint
+            <Grid item key={tier.title} xs={12} md={4}>
+              <Card>
+                <CardHeader
+                  title={tier.title}
+                  titleTypographyProps={{ align: 'center' }}
+                  subheaderTypographyProps={{ align: 'center' }}
+                  className={classes.cardHeader}
                 />
-                <CardContent className={classes.cardContent}>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    Nombre premio
-                  </Typography>
-                  <Typography>
-                    Descripción del premio. Es un premio muy lindo, te
-                    encantaría tenerlo, así que apuesta ya.
-                  </Typography>
+                <CardContent className={classes.prizeCardContent}>
+                  <div className={classes.cardPricing}>
+                    <Typography component="h2" variant="h3" color="textPrimary">
+                      ${tier.price.toLocaleString('de-DE')}
+                    </Typography>
+                  </div>
+                  <img
+                    src={tier.image}
+                    className={
+                      tier.title === 'Primer lugar'
+                        ? classes.biggerPrizeImage
+                        : classes.prizeImage
+                    }
+                  />
                 </CardContent>
               </Card>
             </Grid>
           ))}
         </Grid>
       </Container>
+      <div className={classes.pricing}>
+        <Typography
+          variant="h4"
+          color="secondary"
+          align="center"
+          className={classes.price}
+        >
+          Precios
+        </Typography>
+        <div className={classes.pricingGrid}>
+          <div className={classes.priceWrapper}>
+            <Typography
+              color="secondary"
+              variant="h3"
+              className={classes.price}
+              align="center"
+            >
+              $2.500
+            </Typography>
+            <Typography color="secondary" variant="h6" align="center">
+              de 2 a 6 pollas
+            </Typography>
+          </div>
+          <div className={classes.priceWrapper}>
+            <Typography
+              color="secondary"
+              variant="h2"
+              className={classes.price}
+              align="center"
+            >
+              $2.000
+            </Typography>
+            <Typography color="secondary" variant="h6" align="center">
+              por 7 o más pollas
+            </Typography>
+          </div>
+
+          <div className={classes.priceWrapper}>
+            <Typography
+              color="secondary"
+              variant="h3"
+              className={classes.price}
+              align="center"
+            >
+              $3.000
+            </Typography>
+            <Typography color="secondary" variant="h6" align="center">
+              por 1 polla
+            </Typography>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
