@@ -65,7 +65,6 @@ const CreatePollaDialog = ({ dialogOpen, handleClose, createPolla }) => {
           a ser de las mejores, aparecerá su nombre en el Ranking de Pollas 🏆.
         </DialogContentText>
         <TextField
-          autoFocus
           margin="dense"
           id="polla-name"
           label="Nombre de tu polla"
