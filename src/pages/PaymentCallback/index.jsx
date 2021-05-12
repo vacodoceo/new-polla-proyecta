@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
   Avatar,
-  Box,
+  Button,
   CircularProgress,
   Container,
   makeStyles,
@@ -46,6 +46,11 @@ const useStyles = makeStyles((theme) => ({
       width: theme.spacing(10),
     },
   },
+  bodyWrapper: {
+    display: 'grid',
+    justifyItems: 'center',
+    gap: theme.spacing(2),
+  },
   box: {
     display: 'flex',
     flexDirection: 'column',
@@ -57,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    padding: theme.spacing(2, 1),
+    padding: theme.spacing(2),
   },
   description: {
     marginTop: theme.spacing(2),
@@ -91,7 +96,7 @@ const PaymentCallback = () => {
   const classes = useStyles();
   return (
     <Container className={classes.container}>
-      <Box className={classes.box}>
+      <div className={classes.box}>
         {status === 'loading' ? (
           <CircularProgress size={80} className={classes.avatar} />
         ) : (
@@ -103,18 +108,23 @@ const PaymentCallback = () => {
           </Avatar>
         )}
 
-        <Typography variant="h3" align="center">
+        <Typography variant="h4" align="center">
           {feedbackTitle[status]}
         </Typography>
-      </Box>
+      </div>
 
-      <Typography
-        className={classes.description}
-        align="center"
-        color="textSecondary"
-      >
-        {feedbackDescription[status]}
-      </Typography>
+      <div className={status !== 'loading' && classes.bodyWrapper}>
+        <Typography
+          className={classes.description}
+          align="center"
+          color="textSecondary"
+        >
+          {feedbackDescription[status]}
+        </Typography>
+        <Button variant="contained" color="primary">
+          Ir a mis pollas
+        </Button>
+      </div>
     </Container>
   );
 };

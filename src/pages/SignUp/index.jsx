@@ -1,4 +1,5 @@
 import React from 'react';
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Button,
@@ -45,6 +46,8 @@ const useStyles = makeStyles((theme) => ({
 
 const SignUp = () => {
   const classes = useStyles();
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(firebase.auth);
 
   const handleGoogleRegister = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
