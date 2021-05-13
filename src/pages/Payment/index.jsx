@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { useEffect, useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 import {
   Button,
   CircularProgress,
@@ -10,49 +10,49 @@ import {
   ListItemText,
   makeStyles,
   Paper,
-  Typography,
-} from '@material-ui/core';
-import _ from 'lodash';
+  Typography
+} from "@material-ui/core";
+import _ from "lodash";
 
-import firebase from '../../firebase';
-import FeedbackDialog from '../../components/FeedbackDialog';
+import firebase from "../../firebase";
+import FeedbackDialog from "../../components/FeedbackDialog";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   button: {
-    justifySelf: 'end',
+    justifySelf: "end"
   },
   listItem: {
-    padding: theme.spacing(1, 0),
+    padding: theme.spacing(1, 0)
   },
   paper: {
     padding: theme.spacing(2),
-    display: 'grid',
+    display: "grid"
   },
   paymentMethod: {
-    '& em': {
-      fontStyle: 'normal',
-      fontWeight: 'bold',
-    },
+    "& em": {
+      fontStyle: "normal",
+      fontWeight: "bold"
+    }
   },
   progress: {
-    marginRight: theme.spacing(1),
+    marginRight: theme.spacing(1)
   },
   root: {
-    paddingTop: theme.spacing(2),
+    paddingTop: theme.spacing(2)
   },
   title: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(2)
   },
   total: {
-    fontWeight: 700,
-  },
+    fontWeight: 700
+  }
 }));
 
-const getPrice = (quantity) => {
+const getPrice = quantity => {
   if (quantity < 2) return 3000;
   else if (quantity < 7) return 2500;
   return 2000;
@@ -62,18 +62,22 @@ const Payment = () => {
   const query = useQuery();
   const history = useHistory();
 
-  const [pollas] = useState(query.get('pollas')?.split(','));
+  const [pollas] = useState(query.get("pollas")?.split(","));
   const [checkout, setCheckout] = useState();
   const [checkoutError, setCheckoutError] = useState();
   const [feedbackDialogOpen, setFeedbackDialogOpen] = useState(false);
   const [pollasData] = useCollectionData(
-    firebase.firestore().collection('pollas').where('__name__', 'in', pollas),
-    { idField: 'id' }
+    firebase
+      .firestore()
+      .collection("pollas")
+      .where("__name__", "in", pollas),
+    { idField: "id" }
   );
+  const [paymentDisabled, setPaymentDisabled] = useState(true);
 
   useEffect(() => {
     if (_.isEmpty(pollas)) {
-      history.push('/');
+      history.push("/");
     }
   }, [pollas]);
 
@@ -82,8 +86,8 @@ const Payment = () => {
       console.log(pollas);
       const { data: preferenceId } = await firebase
         .functions()
-        .httpsCallable('createPreference')({
-        pollas,
+        .httpsCallable("createPreference")({
+        pollas
       });
 
       if (preferenceId) {
@@ -91,20 +95,21 @@ const Payment = () => {
         const mp = new MercadoPago(
           process.env.REACT_APP_MERCADOPAGO_PUBLIC_KEY,
           {
-            locale: 'es-CL',
+            locale: "es-CL"
           }
         );
 
         setCheckout(
           mp.checkout({
             preference: {
-              id: preferenceId,
-            },
+              id: preferenceId
+            }
           })
         );
       } else {
         setCheckoutError(true);
       }
+      setTimeout(() => setPaymentDisabled(false), 3000);
     }
   }, [pollas]);
 
@@ -119,7 +124,7 @@ const Payment = () => {
   const FeedbackDialogDescription = () => (
     <>
       Inténtalo nuevamente ingresando desde el menú <em>Mis Pollas</em>,
-      seleccionando tus pollas a pagar, y presionando el botón{' '}
+      seleccionando tus pollas a pagar, y presionando el botón{" "}
       <em>Pagar pollas</em>. Si el error persiste, por favor ponte en contacto
       con nosotres por Instagram @proyectauc o al correo ti@trabajosproyecta.cl
     </>
@@ -133,11 +138,11 @@ const Payment = () => {
           Resumen de pago
         </Typography>
         <List disablePadding>
-          {pollasData?.map((polla) => (
+          {pollasData?.map(polla => (
             <ListItem className={classes.listItem} key={polla.id}>
               <ListItemText primary={polla.name} secondary={polla.id} />
               <Typography variant="body2">
-                ${getPrice(pollas.length).toLocaleString('de-DE')}
+                ${getPrice(pollas.length).toLocaleString("de-DE")}
               </Typography>
             </ListItem>
           ))}
@@ -147,7 +152,7 @@ const Payment = () => {
             <Typography variant="subtitle1" className={classes.total}>
               $
               {(getPrice(pollas.length) * pollas.length).toLocaleString(
-                'de-DE'
+                "de-DE"
               )}
             </Typography>
           </ListItem>
@@ -161,7 +166,7 @@ const Payment = () => {
           className={classes.paymentMethod}
           align="justify"
         >
-          Nuestro único medio de pago mediante esta plataforma es{' '}
+          Nuestro único medio de pago mediante esta plataforma es{" "}
           <em>Mercado Pago</em>. Si tienes dudas sobre como funciona este método
           o prefieres transferirnos el dinero directamente, no dudes en
           contactarnos por correo (ti@trabajosproyecta.cl) o instagram
@@ -172,10 +177,10 @@ const Payment = () => {
           onClick={handlePay}
           variant="contained"
           color="primary"
-          disabled={!checkout && !checkoutError}
+          disabled={paymentDisabled}
           className={classes.button}
         >
-          {!checkout && !checkoutError && (
+          {paymentDisabled && (
             <CircularProgress
               className={classes.progress}
               color="secondary"
