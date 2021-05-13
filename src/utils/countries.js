@@ -14,6 +14,6 @@ export const labels = {
 };
 
 export const groups = {
-  A: ['argentina', 'australia', 'bolivia', 'uruguay', 'chile', 'paraguay'],
-  B: ['colombia', 'brasil', 'qatar', 'venezuela', 'ecuador', 'peru'],
+  A: ['argentina', 'bolivia', 'uruguay', 'chile', 'paraguay'],
+  B: ['colombia', 'brasil', 'venezuela', 'ecuador', 'peru'],
 };
