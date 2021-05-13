@@ -11,7 +11,7 @@ mercadopago.configure({
 });
 
 exports.createPolla = functions.https.onCall(
-  async ({ name, results }, context) => {
+  async ({ name, results, seller }, context) => {
     if (!context.auth || _.isEmpty(name)) {
       return;
     }
@@ -19,6 +19,7 @@ exports.createPolla = functions.https.onCall(
     const docRef = await admin.firestore().collection('pollas').add({
       name,
       results,
+      seller,
       userId: context.auth.uid,
       status: 'unpaid',
       score: 0,

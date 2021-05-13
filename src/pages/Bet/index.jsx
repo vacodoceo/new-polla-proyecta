@@ -55,17 +55,16 @@ const Bet = () => {
   const [createPollaDialogOpen, setCreatePollaDialogOpen] = useState(false);
   const [pollaId, setPollaId] = useState();
   const [feedbackDialogOpen, setFeedbackDialogOpen] = useState(false);
-  const scrollRef = useRef();
 
   useEffect(() => {
     const currentStepIncomplete = checkStepIncomplete();
     setIsStepIncomplete(isStepIncomplete && currentStepIncomplete);
   }, [activeStep, results]);
 
-  const createPolla = async (name) => {
+  const createPolla = async (name, seller) => {
     const pollaIdResponse = await firebase
       .functions()
-      .httpsCallable('createPolla')({ name, results });
+      .httpsCallable('createPolla')({ name, results, seller });
     setPollaId(pollaIdResponse.data);
     setCreatePollaDialogOpen(false);
     setFeedbackDialogOpen(true);
@@ -78,8 +77,11 @@ const Bet = () => {
     } else {
       if (activeStep === Object.keys(steps).length - 1) {
         setCreatePollaDialogOpen(true);
-        scrollRef.current.scrollIntoView();
       } else {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
         setActiveStep(activeStep + 1);
       }
     }
@@ -206,7 +208,6 @@ const Bet = () => {
         activeStep={activeStep}
         alternativeLabel
         className={classes.stepper}
-        ref={scrollRef}
       >
         {steps.map((step) => (
           <Step key={step}>

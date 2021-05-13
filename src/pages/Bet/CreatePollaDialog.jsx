@@ -9,10 +9,15 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  FormHelperText,
   makeStyles,
+  MenuItem,
+  Select,
   TextField,
 } from '@material-ui/core';
 import _ from 'lodash';
+
+import sellers from '../../utils/sellers';
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
@@ -26,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CreatePollaDialog = ({ dialogOpen, handleClose, createPolla }) => {
   const [pollaName, setPollaName] = useState('');
+  const [seller, setSeller] = useState('');
   const [pollaNameError, setPollaNameError] = useState();
   const [submitting, setSubmitting] = useState(false);
 
@@ -42,7 +48,7 @@ const CreatePollaDialog = ({ dialogOpen, handleClose, createPolla }) => {
       setPollaNameError('¡Debes ponerle un nombre a tu polla!');
     } else {
       setSubmitting(true);
-      await createPolla(pollaName);
+      await createPolla(pollaName, seller);
       setSubmitting(false);
     }
   };
@@ -74,6 +80,26 @@ const CreatePollaDialog = ({ dialogOpen, handleClose, createPolla }) => {
           fullWidth
           onChange={handlePollaNameChange}
         />
+        <DialogContentText color="textPrimary" style={{ marginTop: '16px' }}>
+          Si alguien te vendió la polla (es decir, te convenció a comprarla),
+          deja su nombre acá abajo!
+        </DialogContentText>
+        <Select
+          value={seller}
+          onChange={(e) => setSeller(e.target.value)}
+          defaultValue={''}
+          placeholder="Vendedor"
+          fullWidth
+        >
+          <MenuItem value={''}>
+            <em>Ninguno</em>
+          </MenuItem>
+          {sellers.map((seller) => (
+            <MenuItem value={seller} key={seller}>
+              {seller}
+            </MenuItem>
+          ))}
+        </Select>
       </DialogContent>
       <DialogActions>
         <Button
