@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1)
   },
   root: {
-    paddingTop: theme.spacing(2)
+    padding: theme.spacing(2, 0)
   },
   title: {
     marginTop: theme.spacing(2)
