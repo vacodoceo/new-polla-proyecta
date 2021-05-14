@@ -69,7 +69,7 @@ const DesktopHeader = ({ navData }) => {
             key={label}
             color="inherit"
             to={href}
-            component={Link}
+            component={ReactLink}
             className={classes.link}
           >
             {label}
