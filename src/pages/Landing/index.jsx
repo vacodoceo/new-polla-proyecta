@@ -201,7 +201,12 @@ const Landing = () => {
                 </Link>
               </Grid>
               <Grid item>
-                <Button variant="contained" color="secondary">
+                <Button
+                  component={Link}
+                  to="/about-us"
+                  variant="contained"
+                  color="secondary"
+                >
                   ¿Por qué debería participar?
                 </Button>
               </Grid>
