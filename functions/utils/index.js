@@ -10,23 +10,26 @@ const verifyPayment = async (paymentId) => {
     },
   });
 
-  const pollasId =
-    response.data.additional_info.items[0].description.split(',');
-  const price = Number(response.data.additional_info.items[0].unit_price);
-  const updatePollasPromises = pollasId.map((pollaId) =>
-    payPolla(pollaId, price)
-  );
-  await Promise.all([updatePollasPromises]);
+  if (response.data.status === 'approved') {
+    const pollasId =
+      response.data.additional_info.items[0].description.split(',');
+    const price = Number(response.data.additional_info.items[0].unit_price);
+    const updatePollasPromises = pollasId.map((pollaId) =>
+      payPolla(pollaId, price, paymentId)
+    );
+    await Promise.all([updatePollasPromises]);
+  }
 
   return response.data.status;
 };
 
-const payPolla = async (pollaId, price) => {
+const payPolla = async (pollaId, price, paymentId) => {
   try {
     const pollaDoc = app.firestore().doc(`pollas/${pollaId}`);
     const updateResult = await pollaDoc.update({
       status: 'paid',
       price,
+      paymentId,
     });
     return updateResult;
   } catch (err) {

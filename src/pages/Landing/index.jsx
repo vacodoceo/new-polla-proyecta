@@ -136,7 +136,7 @@ const Landing = () => {
   const classes = useStyles();
   const [bounty, setBounty] = useState(0);
   const [pollasData] = useCollectionData(
-    firebase.firestore().collection('pollas')
+    firebase.firestore().collection('pollas').where('status', '==', 'paid')
   );
 
   useEffect(() => {
