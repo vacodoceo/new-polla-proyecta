@@ -11,7 +11,6 @@ import {
   // Payment,
   // PaymentCallback,
   Pollas,
-  Ranking,
   SignIn,
   SignUp,
 } from './pages';
