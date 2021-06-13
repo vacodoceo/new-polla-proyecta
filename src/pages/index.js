@@ -5,6 +5,7 @@ import Landing from './Landing';
 import Payment from './Payment';
 import PaymentCallback from './PaymentCallback';
 import Pollas from './Pollas';
+import Ranking from './Ranking';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 
@@ -16,6 +17,7 @@ export {
   Payment,
   PaymentCallback,
   Pollas,
+  Ranking,
   SignIn,
   SignUp,
 };
