@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import {
-  Button,
   Checkbox,
   Chip,
   Container,
@@ -13,7 +12,6 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Tooltip,
   Typography,
 } from '@material-ui/core';
 import { green, red } from '@material-ui/core/colors';
@@ -21,7 +19,6 @@ import moment from 'moment';
 import _ from 'lodash';
 
 import firebase from '../../firebase';
-import { Link } from 'react-router-dom';
 
 const payPollasErrors = {
   empty: '¡Debes seleccionar al menos 1 polla!',
