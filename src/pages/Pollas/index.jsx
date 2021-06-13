@@ -108,9 +108,7 @@ const Pollas = () => {
       <Paper className={classes.paper}>
         <Typography variant="h4">Mis Pollas</Typography>
         <Typography variant="body1" className={classes.description}>
-          Acá puedes ver todas tus pollas y su información 🤓. Si tienes pollas
-          sin pagar basta con que las selecciones y presiones el botón{' '}
-          <em>PAGAR</em>.
+          Acá puedes ver todas tus pollas y su información 🤓.
         </Typography>
 
         <div className={classes.tableWrapper}>
@@ -167,7 +165,7 @@ const Pollas = () => {
           </Table>
         </div>
 
-        <Tooltip
+        {/* <Tooltip
           title={payError}
           aria-label="pay"
           disableHoverListener={!payError}
@@ -183,7 +181,7 @@ const Pollas = () => {
               Pagar
             </Button>
           </span>
-        </Tooltip>
+        </Tooltip> */}
       </Paper>
     </Container>
   );
