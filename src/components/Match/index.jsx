@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Match = (props) => {
-  const { name, firstCountry, secondCountry, handleChange } = props;
+  const { name, firstCountry, secondCountry, handleChange, editable } = props;
 
   const handleScoreChange = (country) => (score) => {
     handleChange({
@@ -64,7 +64,7 @@ const Match = (props) => {
           key={`${name}-${firstCountry.value}`}
         >
           <IconButton
-            disabled={!isTie}
+            disabled={!isTie || !editable}
             onClick={() => handleWinnerChange('firstCountry')}
           >
             {firstCountry.winner ? <Crown /> : <CrownOutlined />}
@@ -79,6 +79,7 @@ const Match = (props) => {
           <ScoreSelector
             score={firstCountry.score}
             handleChange={handleScoreChange('firstCountry')}
+            editable={editable}
           />
         </ListItem>
 
@@ -89,7 +90,7 @@ const Match = (props) => {
           key={`${name}-${secondCountry.value}`}
         >
           <IconButton
-            disabled={!isTie}
+            disabled={!isTie || !editable}
             onClick={() => handleWinnerChange('secondCountry')}
           >
             {secondCountry.winner ? <Crown /> : <CrownOutlined />}
@@ -104,6 +105,7 @@ const Match = (props) => {
           <ScoreSelector
             score={secondCountry.score}
             handleChange={handleScoreChange('secondCountry')}
+            editable={editable}
           />
         </ListItem>
       </List>
@@ -126,6 +128,11 @@ Match.propTypes = {
   winner: PropTypes.string,
   loser: PropTypes.string,
   handleChange: PropTypes.func,
+  editable: PropTypes.bool,
+};
+
+Match.defaultProps = {
+  editable: true,
 };
 
 export default Match;

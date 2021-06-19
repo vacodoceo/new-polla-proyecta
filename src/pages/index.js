@@ -4,6 +4,7 @@ import FAQ from './FAQ';
 import Landing from './Landing';
 import Payment from './Payment';
 import PaymentCallback from './PaymentCallback';
+import PollaDetails from './PollaDetails';
 import Pollas from './Pollas';
 import Ranking from './Ranking';
 import SignIn from './SignIn';
@@ -16,6 +17,7 @@ export {
   Landing,
   Payment,
   PaymentCallback,
+  PollaDetails,
   Pollas,
   Ranking,
   SignIn,

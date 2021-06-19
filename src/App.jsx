@@ -10,6 +10,7 @@ import {
   Landing,
   // Payment,
   // PaymentCallback,
+  PollaDetails,
   Pollas,
   SignIn,
   SignUp,
@@ -38,6 +39,11 @@ const App = () => {
             component={PaymentCallback}
           /> */}
           {/* <PrivateRoute path="/payment" exact component={Payment} /> */}
+          <PrivateRoute
+            path="/pollas/:pollaId"
+            exact
+            component={PollaDetails}
+          />
           <PrivateRoute path="/pollas" exact component={Pollas} />
         </Switch>
       </main>

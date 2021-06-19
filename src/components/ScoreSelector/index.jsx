@@ -1,5 +1,10 @@
 import PropTypes from 'prop-types';
-import { ButtonBase, makeStyles, OutlinedInput } from '@material-ui/core';
+import {
+  ButtonBase,
+  makeStyles,
+  OutlinedInput,
+  Typography,
+} from '@material-ui/core';
 import { Remove as MinusIcon, Add as PlusIcon } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
@@ -52,31 +57,38 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ScoreSelector = ({ score, handleChange }) => {
+const ScoreSelector = ({ score, handleChange, editable }) => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
-      <ButtonBase
-        className={classes.button}
-        onClick={() => handleChange(score - 1)}
-      >
-        <MinusIcon />
-      </ButtonBase>
-      <OutlinedInput
-        variant="outlined"
-        type="number"
-        size="small"
-        className={classes.scoreField}
-        max={7}
-        value={score}
-        onChange={(e) => handleChange(e.target.value)}
-      ></OutlinedInput>
-      <ButtonBase
-        className={classes.button}
-        onClick={() => handleChange(score + 1)}
-      >
-        <PlusIcon />
-      </ButtonBase>
+      {editable && (
+        <>
+          <ButtonBase
+            className={classes.button}
+            onClick={() => handleChange(score - 1)}
+            disabled={!editable}
+          >
+            <MinusIcon />
+          </ButtonBase>
+          <OutlinedInput
+            variant="outlined"
+            type="number"
+            size="small"
+            className={classes.scoreField}
+            max={7}
+            value={score}
+            onChange={(e) => handleChange(e.target.value)}
+          ></OutlinedInput>
+          <ButtonBase
+            className={classes.button}
+            onClick={() => handleChange(score + 1)}
+            disabled={!editable}
+          >
+            <PlusIcon />
+          </ButtonBase>
+        </>
+      )}
+      {!editable && <Typography variant="h6">{score}</Typography>}
     </div>
   );
 };
@@ -84,6 +96,11 @@ const ScoreSelector = ({ score, handleChange }) => {
 ScoreSelector.propTypes = {
   handleChange: PropTypes.func,
   score: PropTypes.number,
+  editable: PropTypes.bool,
+};
+
+ScoreSelector.defaultProps = {
+  editable: true,
 };
 
 export default ScoreSelector;

@@ -19,6 +19,7 @@ import moment from 'moment';
 import _ from 'lodash';
 
 import firebase from '../../firebase';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -44,6 +45,13 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     display: 'grid',
     gap: theme.spacing(2),
+  },
+  tableRow: {
+    cursor: 'pointer',
+    textDecoration: 'none',
+    '&:hover': {
+      background: 'whitesmoke',
+    },
   },
   tableWrapper: {
     width: '100%',
@@ -85,7 +93,9 @@ const Pollas = () => {
       <Paper className={classes.paper}>
         <Typography variant="h4">Mis Pollas</Typography>
         <Typography variant="body1" className={classes.description}>
-          Acá puedes ver todas tus pollas y su información 🤓.
+          Acá puedes ver todas tus pollas y su información 🤓. Si deseas saber
+          qué apostaste en una de tus pollas, basta con que hagas click en su
+          fila de la tabla para ver tus resultados apostados 🧐.
         </Typography>
 
         <div className={classes.tableWrapper}>
@@ -115,7 +125,12 @@ const Pollas = () => {
             </TableHead>
             <TableBody>
               {pollas?.map((polla) => (
-                <TableRow key={polla.id}>
+                <TableRow
+                  component={Link}
+                  key={polla.id}
+                  className={classes.tableRow}
+                  to={`pollas/${polla.id}`}
+                >
                   <TableCell>{polla.name}</TableCell>
                   <TableCell className={classes.code}>{polla.id}</TableCell>
                   <TableCell>

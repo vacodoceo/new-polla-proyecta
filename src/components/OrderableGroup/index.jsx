@@ -40,7 +40,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   }),
 });
 
-const OrderableGroup = ({ title, id, order, handleChange }) => {
+const OrderableGroup = ({ title, id, order, handleChange, draggable }) => {
   const onDragEnd = (result) => {
     // dropped outside the list
     if (!result.destination) {
@@ -84,6 +84,7 @@ const OrderableGroup = ({ title, id, order, handleChange }) => {
                 <Draggable
                   key={countryValue}
                   draggableId={countryValue}
+                  isDragDisabled={!draggable}
                   index={index}
                 >
                   {(providedDraggable, snapshot) => (
@@ -122,6 +123,11 @@ OrderableGroup.propTypes = {
   handleChange: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
   title: PropTypes.string,
+  draggable: PropTypes.bool,
+};
+
+OrderableGroup.defaultProps = {
+  draggable: true,
 };
 
 export default OrderableGroup;
