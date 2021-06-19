@@ -44,6 +44,13 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
     fontWeight: '300',
   },
+  stepButton: {
+    '& svg:not(.MuiStepIcon-active)': {
+      overflow: 'visible',
+      fill: 'transparent',
+      stroke: theme.palette.primary.main,
+    },
+  },
   stepper: {
     padding: theme.spacing(0),
     width: 'clamp(280px, 100%, 600px)',
@@ -117,7 +124,12 @@ const PollaDetails = () => {
       >
         {steps.map((step, index) => (
           <Step key={step}>
-            <StepButton onClick={() => setActiveStep(index)}>{step}</StepButton>
+            <StepButton
+              onClick={() => setActiveStep(index)}
+              className={classes.stepButton}
+            >
+              {step}
+            </StepButton>
           </Step>
         ))}
       </Stepper>
