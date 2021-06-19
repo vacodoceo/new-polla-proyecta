@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
-import { useEffect, useState } from 'react';
-import { Redirect, useHistory, useParams } from 'react-router-dom';
+import { useState } from 'react';
+import { Redirect, useParams } from 'react-router-dom';
 import { useDocumentDataOnce } from 'react-firebase-hooks/firestore';
 import {
   Breadcrumbs,
