@@ -49,6 +49,10 @@ const useStyles = makeStyles((theme) => ({
       overflow: 'visible',
       fill: 'transparent',
       stroke: theme.palette.primary.main,
+
+      '& .MuiStepIcon-text': {
+        fill: theme.palette.primary.main,
+      },
     },
   },
   stepper: {
