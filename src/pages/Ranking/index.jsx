@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
   },
 }));
-const FAQ = () => {
+const Ranking = () => {
   const classes = useStyles();
   const [pollas, loading] = useCollectionDataOnce(
     firebase.firestore().collection('pollas').where('status', '==', 'paid'),
@@ -74,7 +74,6 @@ const FAQ = () => {
                   if (index && topTen[index - 1].score > polla.score) {
                     standing += 1;
                   }
-
                   return (
                     <TableRow
                       component={Link}
@@ -100,4 +99,4 @@ const FAQ = () => {
   );
 };
 
-export default FAQ;
+export default Ranking;
