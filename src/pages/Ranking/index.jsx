@@ -78,7 +78,7 @@ const FAQ = () => {
                   >
                     <TableCell>{polla.name}</TableCell>
                     <TableCell className={classes.code}>{polla.id}</TableCell>
-                    <TableCell className={classes.code}>hola</TableCell>
+                    <TableCell className={classes.code}>***</TableCell>
                     <TableCell align="right">{polla.score}</TableCell>
                   </TableRow>
                 ))}
