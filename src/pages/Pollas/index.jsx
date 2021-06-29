@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
   },
   paper: {
+    marginBottom: theme.spacing(1),
     background: 'white',
     padding: theme.spacing(2),
     display: 'grid',
@@ -99,7 +100,7 @@ const Pollas = () => {
         </Typography>
 
         <div className={classes.tableWrapper}>
-          <Table className={classes.table} aria-label="simple table">
+          <Table aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell>Nombre</TableCell>

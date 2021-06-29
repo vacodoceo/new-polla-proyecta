@@ -111,7 +111,7 @@ const MobileHeader = ({ navData }) => {
               label="Iniciar sesión"
             />
           ) : (
-            <LinkListItem href="/pollas" icon={UserIcon} label="Mi perfil" />
+            <LinkListItem href="/pollas" icon={UserIcon} label="Mis Pollas" />
           )}
         </List>
         <Divider />

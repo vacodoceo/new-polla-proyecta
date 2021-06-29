@@ -119,4 +119,34 @@ const validatePolla = async (pollaId) => {
   }
 };
 
-// 1236490606
+exports.onUpdateMatchesResultsTrigger = functions.firestore
+  .document('matches/results')
+  .onUpdate(async (change) => {
+    const updatedResults = change.after.data();
+
+    const pollasReference = app.firestore().collection('pollas');
+    const pollasQuery = pollasReference.where('status', '==', 'paid');
+    const pollas = await pollasQuery.get();
+
+    pollas.forEach((pollaDoc) => {
+      const polla = pollaDoc.data();
+      const score = getScore(polla.results, updatedResults);
+      pollaDoc.ref.update({ score });
+      console.log(pollaDoc.id, score);
+    });
+  });
+
+const getScore = (pollaResults, updatedResults) => {
+  let score = 0;
+
+  const { groups: pollaGroups } = pollaResults;
+  const { groups: updatedGroups } = updatedResults;
+  Object.keys(updatedGroups).forEach((group) => {
+    updatedGroups[group].forEach((country, standing) => {
+      if (pollaGroups[group][standing] === country) {
+        score += 5;
+      }
+    });
+  });
+  return score;
+};

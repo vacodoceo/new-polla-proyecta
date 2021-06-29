@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     background: 'white',
     marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1),
     padding: theme.spacing(2),
 
     '& em': {

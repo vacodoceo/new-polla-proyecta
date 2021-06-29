@@ -193,13 +193,13 @@ const Landing = () => {
           </Typography>
           <div className={classes.heroButtons}>
             <Grid container spacing={2} justify="center">
-              {/* <Grid item>
-                <Link to="/bet" style={{ textDecoration: 'none' }}>
+              <Grid item>
+                <Link to="/ranking" style={{ textDecoration: 'none' }}>
                   <Button variant="contained" color="primary">
-                    ¡Apuesta ya!
+                    Ranking
                   </Button>
                 </Link>
-              </Grid> */}
+              </Grid>
               <Grid item>
                 <Button
                   component={Link}

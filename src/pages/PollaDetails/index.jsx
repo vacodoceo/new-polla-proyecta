@@ -110,7 +110,7 @@ const PollaDetails = () => {
       <Container>
         <Breadcrumbs aria-label="breadcrumb">
           <LinkMUI color="inherit" href="/pollas">
-            Mis Pollas
+            Pollas
           </LinkMUI>
           <Typography color="textPrimary">{pollaId}</Typography>
         </Breadcrumbs>
