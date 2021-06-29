@@ -45,7 +45,12 @@ const useStyles = makeStyles((theme) => ({
 const FAQ = () => {
   const classes = useStyles();
   const [pollas, loading] = useCollectionData(
-    firebase.firestore().collection('pollas').where('status', '==', 'paid'),
+    firebase
+      .firestore()
+      .collection('pollas')
+      .where('status', '==', 'paid')
+      .limit(10)
+      .orderBy('score', 'desc'),
     { idField: 'id' }
   );
 
