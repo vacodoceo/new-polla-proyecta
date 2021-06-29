@@ -1,5 +1,8 @@
 const admin = require('firebase-admin');
-const app = admin.initializeApp();
+const serviceAccount = require('./prodServiceKey.json');
+const app = admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
 
 const getPollas = async () => {
   const pollasReference = app.firestore().collection('pollas');
@@ -11,6 +14,8 @@ const getPollas = async () => {
 getPollas().then((pollas) => {
   pollas.forEach(async (pollaDoc) => {
     const user = await admin.auth().getUser(pollaDoc.data().userId);
-    console.log(user);
+    if (user.displayName) {
+      pollaDoc.ref.update({ userDisplayName: user.displayName });
+    }
   });
 });

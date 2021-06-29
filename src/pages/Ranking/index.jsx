@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { useCollectionDataOnce } from 'react-firebase-hooks/firestore';
 import {
   Container,
   makeStyles,
@@ -44,15 +44,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 const FAQ = () => {
   const classes = useStyles();
-  const [pollas, loading] = useCollectionData(
-    firebase
-      .firestore()
-      .collection('pollas')
-      .where('status', '==', 'paid')
-      .limit(10)
-      .orderBy('score', 'desc'),
+  const [pollas, loading] = useCollectionDataOnce(
+    firebase.firestore().collection('pollas').where('status', '==', 'paid'),
     { idField: 'id' }
   );
+
+  const topTen = pollas.sort((a, b) => b.score - a.score).slice(0, 10);
 
   return (
     <Container maxWidth="md">
@@ -72,7 +69,7 @@ const FAQ = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {pollas?.map((polla) => (
+                {topTen?.map((polla) => (
                   <TableRow
                     component={Link}
                     key={polla.id}
