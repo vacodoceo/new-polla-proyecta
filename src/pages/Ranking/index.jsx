@@ -50,6 +50,7 @@ const FAQ = () => {
   );
 
   const topTen = pollas?.sort((a, b) => b.score - a.score).slice(0, 10);
+  let standing = 1;
 
   return (
     <Container maxWidth="md">
@@ -69,19 +70,27 @@ const FAQ = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {topTen?.map((polla, index) => (
-                  <TableRow
-                    component={Link}
-                    key={polla.id}
-                    className={classes.tableRow}
-                    to={`pollas/${polla.id}`}
-                  >
-                    <TableCell>{index + 1}</TableCell>
-                    <TableCell>{polla.name}</TableCell>
-                    <TableCell className={classes.code}>***</TableCell>
-                    <TableCell align="right">{polla.score}</TableCell>
-                  </TableRow>
-                ))}
+                {topTen?.map((polla, index) => {
+                  if (index && topTen[index - 1].score > polla.score) {
+                    standing += 1;
+                  }
+
+                  return (
+                    <TableRow
+                      component={Link}
+                      key={polla.id}
+                      className={classes.tableRow}
+                      to={`pollas/${polla.id}`}
+                    >
+                      <TableCell>{standing}°</TableCell>
+                      <TableCell>{polla.name}</TableCell>
+                      <TableCell className={classes.code}>
+                        {polla.userDisplayName}
+                      </TableCell>
+                      <TableCell align="right">{polla.score}</TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </div>
