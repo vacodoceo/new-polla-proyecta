@@ -69,15 +69,15 @@ const FAQ = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {topTen?.map((polla) => (
+                {topTen?.map((polla, index) => (
                   <TableRow
                     component={Link}
                     key={polla.id}
                     className={classes.tableRow}
                     to={`pollas/${polla.id}`}
                   >
+                    <TableCell>{index + 1}</TableCell>
                     <TableCell>{polla.name}</TableCell>
-                    <TableCell className={classes.code}>{polla.id}</TableCell>
                     <TableCell className={classes.code}>***</TableCell>
                     <TableCell align="right">{polla.score}</TableCell>
                   </TableRow>
