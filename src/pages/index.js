@@ -7,6 +7,7 @@ import PaymentCallback from './PaymentCallback';
 import PollaDetails from './PollaDetails';
 import Pollas from './Pollas';
 import Ranking from './Ranking';
+import Results from './Results';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 
@@ -20,6 +21,7 @@ export {
   PollaDetails,
   Pollas,
   Ranking,
+  Results,
   SignIn,
   SignUp,
 };

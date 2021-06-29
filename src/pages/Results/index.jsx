@@ -1,12 +1,10 @@
 /* eslint-disable react/display-name */
 import { useState } from 'react';
-import { Redirect, useParams } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { useDocumentDataOnce } from 'react-firebase-hooks/firestore';
 import {
-  Breadcrumbs,
   Button,
   Container,
-  Link as LinkMUI,
   makeStyles,
   Stepper,
   Step,
@@ -45,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: '300',
   },
   stepButton: {
-    '& svg:not(.MuiStepIcon-active)': {
+    '&:not(.Mui-disabled) svg:not(.MuiStepIcon-active)': {
       overflow: 'visible',
       fill: 'transparent',
       stroke: theme.palette.primary.main,
@@ -61,43 +59,41 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PollaDetails = () => {
-  const { pollaId } = useParams();
-  const [polla, loading, error] = useDocumentDataOnce(
-    firebase.firestore().doc(`pollas/${pollaId}`)
+const Results = () => {
+  const [results, loading, error] = useDocumentDataOnce(
+    firebase.firestore().doc(`matches/results`)
   );
   const [activeStep, setActiveStep] = useState(0);
 
   const getStepContent = () => {
     switch (activeStep) {
       case 0:
-        return <BetGroupPhase order={polla.results.groups} />;
+        return <BetGroupPhase order={results.groups} />;
       case 1:
         return (
           <MatchesPhase
             title="Cuartos de Final"
-            matches={polla.results.quarterFinals}
+            matches={results.quarterFinals}
           />
         );
       case 2:
-        return (
-          <MatchesPhase title="Semifinal" matches={polla.results.semiFinals} />
-        );
+        return <MatchesPhase title="Semifinal" matches={results.semiFinals} />;
       case 3:
         return (
-          <MatchesPhase
-            title="Tercer lugar y final"
-            matches={polla.results.finals}
-          />
+          <MatchesPhase title="Tercer lugar y final" matches={results.finals} />
         );
       default:
         return <></>;
     }
   };
 
+  const isStepDisabled = (step) => {
+    return step !== 0;
+  };
+
   const classes = useStyles();
 
-  if (error || (!loading && !polla)) {
+  if (error || (!loading && !results)) {
     return <Redirect to="/pollas" />;
   }
 
@@ -108,16 +104,7 @@ const PollaDetails = () => {
   return (
     <Container maxWidth="lg" className={classes.container}>
       <Container>
-        <Breadcrumbs aria-label="breadcrumb">
-          <LinkMUI color="inherit" href="/pollas">
-            Pollas
-          </LinkMUI>
-          <Typography color="textPrimary">{pollaId}</Typography>
-        </Breadcrumbs>
-        <Typography variant="h4">
-          <span className={classes.lighterTitle}>Resultados de</span>{' '}
-          {polla.name}
-        </Typography>
+        <Typography variant="h4">Resultados actuales</Typography>
       </Container>
 
       <Stepper
@@ -131,6 +118,7 @@ const PollaDetails = () => {
             <StepButton
               onClick={() => setActiveStep(index)}
               className={classes.stepButton}
+              disabled={isStepDisabled(index)}
             >
               {step}
             </StepButton>
@@ -154,7 +142,7 @@ const PollaDetails = () => {
           onClick={() => setActiveStep(activeStep + 1)}
           variant="contained"
           color="primary"
-          disabled={activeStep === 3}
+          disabled={activeStep === 3 || isStepDisabled(activeStep + 1)}
         >
           Siguiente
         </Button>
@@ -163,4 +151,4 @@ const PollaDetails = () => {
   );
 };
 
-export default PollaDetails;
+export default Results;

@@ -24,6 +24,8 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(2),
     padding: theme.spacing(2),
+    display: 'grid',
+    gap: theme.spacing(1),
 
     '& em': {
       fontWeight: 'bold',
@@ -56,6 +58,12 @@ const Ranking = () => {
     <Container maxWidth="md">
       <Paper className={classes.paper}>
         <Typography variant="h4">Ranking de pollas</Typography>
+        <Typography variant="body1">
+          ¡Estos son los 10 primeros lugares hasta la fecha 🏆! Si ves algún
+          empate, el orden en que están desplegados en la lista no es relevante.
+          Si tienes alguna duda de qué resultados están siendo considerados para
+          estos puntajes, puedes revisarlos <Link to="/results">acá</Link>
+        </Typography>
         {loading ? (
           <Loading />
         ) : (
