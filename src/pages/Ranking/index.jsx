@@ -49,7 +49,7 @@ const FAQ = () => {
     { idField: 'id' }
   );
 
-  const topTen = pollas.sort((a, b) => b.score - a.score).slice(0, 10);
+  const topTen = pollas?.sort((a, b) => b.score - a.score).slice(0, 10);
 
   return (
     <Container maxWidth="md">
