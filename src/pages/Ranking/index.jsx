@@ -85,7 +85,7 @@ const FAQ = () => {
                       <TableCell>{standing}°</TableCell>
                       <TableCell>{polla.name}</TableCell>
                       <TableCell className={classes.code}>
-                        {polla.userDisplayName}
+                        {polla.userDisplayName ?? '-'}
                       </TableCell>
                       <TableCell align="right">{polla.score}</TableCell>
                     </TableRow>
