@@ -16,6 +16,9 @@ import firebase from '../../firebase';
 import Loading from '../../components/Loading';
 
 const useStyles = makeStyles((theme) => ({
+  description: {
+    marginTop: theme.spacing(2),
+  },
   heading: {
     fontWeight: 500,
   },
@@ -23,9 +26,9 @@ const useStyles = makeStyles((theme) => ({
     background: 'white',
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(2),
-    padding: theme.spacing(2),
+    padding: theme.spacing(4, 2),
     display: 'grid',
-    gap: theme.spacing(1),
+    gap: theme.spacing(2),
 
     '& em': {
       fontWeight: 'bold',
@@ -57,9 +60,11 @@ const Ranking = () => {
   return (
     <Container maxWidth="md">
       <Paper className={classes.paper}>
-        <Typography variant="h4">Ranking de pollas</Typography>
-        <Typography variant="body1">
-          ¡Estos son los 10 primeros lugares hasta la fecha 🏆! Si ves algún
+        <Typography variant="h4" align="center">
+          🏆 Ranking de pollas 🏆
+        </Typography>
+        <Typography variant="body1" className={classes.description}>
+          ¡Estos son los 10 primeros lugares hasta la fecha! Si ves algún
           empate, el orden en que están desplegados en la lista no es relevante.
           Si tienes alguna duda de qué resultados están siendo considerados para
           estos puntajes, puedes revisarlos <Link to="/results">acá</Link>
