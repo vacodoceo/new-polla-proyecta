@@ -88,7 +88,18 @@ const Results = () => {
   };
 
   const isStepDisabled = (step) => {
-    return step !== 0;
+    switch (step) {
+      case 0:
+        return !results.groups;
+      case 1:
+        return !results.quarterFinals;
+      case 2:
+        return !results.semiFinals;
+      case 3:
+        return !results.finals;
+      default:
+        return true;
+    }
   };
 
   const classes = useStyles();

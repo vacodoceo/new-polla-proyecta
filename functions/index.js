@@ -143,10 +143,32 @@ const getScore = (pollaResults, updatedResults) => {
   const { groups: updatedGroups } = updatedResults;
   Object.keys(updatedGroups).forEach((group) => {
     updatedGroups[group].forEach((country, standing) => {
-      if (pollaGroups[group][standing] === country) {
-        score += 5;
-      }
+      if (pollaGroups[group][standing] === country) score += 5;
     });
   });
+
+  const { quarterFinals: pollaQuarters } = pollaResults;
+  const { quarterFinals: updatedQuarters } = updatedResults;
+
+  updatedQuarters.forEach((updatedMatch, index) => {
+    const pollaMatch = pollaQuarters[index];
+    if (getMatchWinner(pollaMatch) === getMatchWinner(updatedMatch)) score += 5;
+    if (pollaMatch.firstCountry.score === updatedMatch.firstCountry.score)
+      score += 2;
+    if (pollaMatch.secondCountry.score === updatedMatch.secondCountry.score)
+      score += 2;
+
+    const pollaScoreDiff =
+      pollaMatch.firstCountry.score - pollaMatch.secondCountry.score;
+    const updatedScoreDiff =
+      updatedMatch.firstCountry.score - updatedMatch.secondCountry.score;
+    if (pollaScoreDiff === updatedScoreDiff) score += 1;
+  });
+
   return score;
+};
+
+const getMatchWinner = (match) => {
+  if (match.firstCountry.winner) return match.firstCountry.value;
+  return match.secondCountry.value;
 };
