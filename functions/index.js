@@ -7,7 +7,7 @@ const app = require('./firebase');
 require('dotenv').config();
 
 mercadopago.configure({
-  access_token: functions.config().mercadopago.access_token,
+  access_token: functions.config().mercadopago.access_token
 });
 
 exports.createPolla = functions.https.onCall(
@@ -16,15 +16,18 @@ exports.createPolla = functions.https.onCall(
       return;
     }
 
-    const docRef = await admin.firestore().collection('pollas').add({
-      name,
-      results,
-      seller,
-      userId: context.auth.uid,
-      status: 'unpaid',
-      score: 0,
-      createdAt: admin.firestore.FieldValue.serverTimestamp(),
-    });
+    const docRef = await admin
+      .firestore()
+      .collection('pollas')
+      .add({
+        name,
+        results,
+        seller,
+        userId: context.auth.uid,
+        status: 'unpaid',
+        score: 0,
+        createdAt: admin.firestore.FieldValue.serverTimestamp()
+      });
 
     return docRef.id;
   }
@@ -36,7 +39,7 @@ exports.createPreference = functions.https.onCall(
       return;
     }
 
-    const getPrice = (quantity) => {
+    const getPrice = quantity => {
       if (quantity < 2) return 3000;
       else if (quantity < 7) return 2500;
       return 2000;
@@ -54,17 +57,17 @@ exports.createPreference = functions.https.onCall(
           title: 'Pollamérica - Proyecta',
           description: pollas.toString(),
           unit_price: getPrice(pollas.length),
-          quantity: pollas.length,
-        },
+          quantity: pollas.length
+        }
       ],
       back_urls: {
         success: `${context.rawRequest.headers.origin}/payment/callback`,
         pending: `${context.rawRequest.headers.origin}/payment/callback`,
-        failure: `${context.rawRequest.headers.origin}/payment/callback`,
+        failure: `${context.rawRequest.headers.origin}/payment/callback`
       },
       payment_methods: {
-        excluded_payment_types: [{ id: 'ticket' }, { id: 'atm' }],
-      },
+        excluded_payment_types: [{ id: 'ticket' }, { id: 'atm' }]
+      }
     };
 
     const preferenceResponse = await mercadopago.preferences.create(preference);
@@ -108,7 +111,7 @@ exports.webhookVerifyPayment = functions.https.onRequest(async (req, res) => {
   }
 });
 
-const validatePolla = async (pollaId) => {
+const validatePolla = async pollaId => {
   try {
     const pollaDoc = app.firestore().doc(`pollas/${pollaId}`);
     const pollaSnapshot = await pollaDoc.get();
@@ -121,14 +124,14 @@ const validatePolla = async (pollaId) => {
 
 exports.onUpdateMatchesResultsTrigger = functions.firestore
   .document('matches/results')
-  .onUpdate(async (change) => {
+  .onUpdate(async change => {
     const updatedResults = change.after.data();
 
     const pollasReference = app.firestore().collection('pollas');
     const pollasQuery = pollasReference.where('status', '==', 'paid');
     const pollas = await pollasQuery.get();
 
-    pollas.forEach((pollaDoc) => {
+    pollas.forEach(pollaDoc => {
       const polla = pollaDoc.data();
       const score = getScore(polla.results, updatedResults);
       pollaDoc.ref.update({ score });
@@ -141,7 +144,7 @@ const getScore = (pollaResults, updatedResults) => {
 
   const { groups: pollaGroups } = pollaResults;
   const { groups: updatedGroups } = updatedResults;
-  Object.keys(updatedGroups).forEach((group) => {
+  Object.keys(updatedGroups).forEach(group => {
     updatedGroups[group].forEach((country, standing) => {
       if (pollaGroups[group][standing] === country) score += 5;
     });
@@ -165,10 +168,46 @@ const getScore = (pollaResults, updatedResults) => {
     if (pollaScoreDiff === updatedScoreDiff) score += 1;
   });
 
+  const { semiFinals: pollaSemis } = pollaResults;
+  const { semiFinals: updatedSemis } = updatedResults;
+
+  updatedSemis.forEach((updatedMatch, index) => {
+    const pollaMatch = pollaSemis[index];
+    if (getMatchWinner(pollaMatch) === getMatchWinner(updatedMatch)) score += 5;
+    if (pollaMatch.firstCountry.score === updatedMatch.firstCountry.score)
+      score += 2;
+    if (pollaMatch.secondCountry.score === updatedMatch.secondCountry.score)
+      score += 2;
+
+    const pollaScoreDiff =
+      pollaMatch.firstCountry.score - pollaMatch.secondCountry.score;
+    const updatedScoreDiff =
+      updatedMatch.firstCountry.score - updatedMatch.secondCountry.score;
+    if (pollaScoreDiff === updatedScoreDiff) score += 1;
+  });
+
+  const { finals: pollaFinals } = pollaResults;
+  const { finals: updatedFinals } = updatedResults;
+
+  updatedFinals.forEach((updatedMatch, index) => {
+    const pollaMatch = pollaFinals[index];
+    if (getMatchWinner(pollaMatch) === getMatchWinner(updatedMatch)) score += 5;
+    if (pollaMatch.firstCountry.score === updatedMatch.firstCountry.score)
+      score += 2;
+    if (pollaMatch.secondCountry.score === updatedMatch.secondCountry.score)
+      score += 2;
+
+    const pollaScoreDiff =
+      pollaMatch.firstCountry.score - pollaMatch.secondCountry.score;
+    const updatedScoreDiff =
+      updatedMatch.firstCountry.score - updatedMatch.secondCountry.score;
+    if (pollaScoreDiff === updatedScoreDiff) score += 1;
+  });
+
   return score;
 };
 
-const getMatchWinner = (match) => {
+const getMatchWinner = match => {
   if (match.firstCountry.winner) return match.firstCountry.value;
   return match.secondCountry.value;
 };
