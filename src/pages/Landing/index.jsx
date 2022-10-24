@@ -18,10 +18,8 @@ import CountUp from 'react-countup';
 import firebase from '../../firebase';
 import { makeStyles } from '@material-ui/core/styles';
 import landingBackground from '../../assets/images/landing.jpg';
-import thirdPlaceImage from '../../assets/images/thirdPlace.png';
-import secondPlaceImage from '../../assets/images/secondPlace.png';
-import firstPlaceImage from '../../assets/images/firstPlace.png';
-
+import { getPrizes, prizeCssData } from '../../helpers/prizes_helper';
+ 
 const useStyles = makeStyles((theme) => ({
   '@global': {
     ul: {
@@ -111,30 +109,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const prizes = [
-  {
-    title: 'Segundo lugar',
-    amount: 15000,
-    extra: '+ 2% del pozo total',
-    image: secondPlaceImage,
-  },
-  {
-    title: 'Primer lugar',
-    amount: 30000,
-    extra: '+ 5% del pozo total',
-    image: firstPlaceImage,
-  },
-  {
-    title: 'Tercer lugar',
-    amount: 5000,
-    extra: '+ premio sorpresa',
-    image: thirdPlaceImage,
-  },
-];
-
 const Landing = () => {
   const classes = useStyles();
   const [bounty, setBounty] = useState(0);
+  const [prizes, setPrizes] = useState([]);
   const [pollasData] = useCollectionData(
     firebase.firestore().collection('pollas').where('status', '==', 'paid')
   );
@@ -146,6 +124,10 @@ const Landing = () => {
         0
       );
       setBounty(newBounty);
+
+      const prizesCssData = prizeCssData(classes)
+      const prizesData = getPrizes(newBounty, prizesCssData)
+      setPrizes(prizesData)
     }
   }, [pollasData]);
 
@@ -179,7 +161,7 @@ const Landing = () => {
             style={{ fontWeight: 400 }}
             gutterBottom
           >
-            La Gran Pollamérica
+            La Gran Polla Mundialista
           </Typography>
           <Typography
             variant="h5"
@@ -188,7 +170,7 @@ const Landing = () => {
             style={{ color: 'rgba(0, 0, 0, .93)' }}
           >
             Un sitio en el que podrás ganar premios apostando por los resultados
-            de la Copa América, al mismo tiempo que estarás ayudando a disminuir
+            del Mundial, al mismo tiempo que estarás ayudando a disminuir
             la pobreza multidimensional en Chile.
           </Typography>
           <div className={classes.heroButtons}>
@@ -235,11 +217,7 @@ const Landing = () => {
 
                   <img
                     src={prize.image}
-                    className={
-                      prize.title === 'Primer lugar'
-                        ? classes.biggerPrizeImage
-                        : classes.prizeImage
-                    }
+                    className={prize.className}
                   />
                 </CardContent>
               </Card>
@@ -264,10 +242,10 @@ const Landing = () => {
               className={classes.price}
               align="center"
             >
-              $2.500
+              $2.250
             </Typography>
             <Typography color="secondary" variant="h6" align="center">
-              de 2 a 6 pollas
+              de 4 a 8 pollas
             </Typography>
           </div>
           <div className={classes.priceWrapper}>
@@ -280,7 +258,7 @@ const Landing = () => {
               $2.000
             </Typography>
             <Typography color="secondary" variant="h6" align="center">
-              por 7 o más pollas
+              por 9 o más pollas
             </Typography>
           </div>
 
@@ -291,10 +269,10 @@ const Landing = () => {
               className={classes.price}
               align="center"
             >
-              $3.000
+              $2.500
             </Typography>
             <Typography color="secondary" variant="h6" align="center">
-              por 1 polla
+              por 1 a 3 pollas
             </Typography>
           </div>
         </div>

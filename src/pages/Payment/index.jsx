@@ -53,8 +53,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const getPrice = quantity => {
-  if (quantity < 2) return 3000;
-  else if (quantity < 7) return 2500;
+  if (quantity < 4) return 2500;
+  else if (quantity < 9) return 2250;
   return 2000;
 };
 

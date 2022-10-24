@@ -19,6 +19,14 @@ function Copyright() {
       >
         @vacodoceo
       </Link>{' '}
+      and
+      <Link
+        color="inherit"
+        href="https://github.com/jiruiz2"
+        style={{ textDecoration: 'underline' }}
+      >
+        @jiruiz2
+      </Link>{' '}
       for Proyecta
     </Typography>
   );

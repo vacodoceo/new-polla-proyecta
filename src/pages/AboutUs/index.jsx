@@ -44,20 +44,12 @@ const AboutUs = () => {
             Actualmente Proyecta se financia mediante la realización de
             distintas actividades gracias a la colaboración de sus voluntarios,
             por lo que la realización de esta polla surge de la necesidad
-            existente de llevar a cabo los Trabajos de Invierno 2021 de la mejor
+            existente de llevar a cabo los Trabajos de Verano 2023 de la mejor
             manera posible. ¡Te invitamos a colaborar con nosotros a través de
-            esta entretenida Polla Copa América 2021, y de paso estarás ayudando
+            esta entretenida Polla Mundial Qatar 2022, y de paso estarás ayudando
             a todas las familias que buscamos beneficiar con nuestros trabajos
             durante el año! Si quieres saber más de Proyecta y nuestras
-            actividades, puedes buscarnos en nuestra página web{' '}
-            <Link
-              color="inherit"
-              href="https://trabajosproyecta.cl"
-              style={{ fontWeight: 'bold' }}
-            >
-              www.trabajosproyecta.cl
-            </Link>{' '}
-            o nuestro Instagram{' '}
+            actividades, puedes buscarnos en nuestro Instagram{' '}
             <Link
               color="inherit"
               href="https://www.instagram.com/proyectauc/?hl=es-la"

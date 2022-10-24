@@ -53,7 +53,7 @@ const faqs = [
     body: (
       <Typography>
         Será posible participar hasta el día anterior a que inicie la Copa
-        América, es decir, se podrá comprar hasta el 10 de Junio a las 23:59
+        América, es decir, se podrá comprar hasta el 19 de Noviembre a las 23:59
       </Typography>
     ),
   },
@@ -139,7 +139,7 @@ const faqs = [
     title: '¿Cómo cobro mi premio?',
     body: (
       <Typography>
-        Una vez que haya finalizado la Copa América 2021, la organización se
+        Una vez que haya finalizado el Mundial Qatar 2022, la organización se
         contactará con los ganadores por correo para gestionar la entrega de su
         premio.
       </Typography>
@@ -147,7 +147,7 @@ const faqs = [
   },
   {
     title:
-      '¿Por qué el pago está asociado a la cuenta de Javiera Cavassa? ¿Quién es Javiera Cavassa?',
+      '¿Por qué el pago está asociado a la cuenta de Marcela Céspedes? ¿Quién es Marcela Céspedes?',
     body: (
       <Typography>
         Proyecta es un voluntariado que pertenece a la Facultad de Ingeniería de
@@ -155,7 +155,7 @@ const faqs = [
         personalidad jurídica, lo que conlleva a que no sea posible tener una
         cuenta bancaria asociada a la organización. Es por este motivo que los
         ingresos asociados a los pagos de las apuestas se deben realizar a una
-        cuenta particular. Javiera Cavassa es una de los tres jefes generales de
+        cuenta particular. Marcela Céspedes es una de los tres jefes generales de
         Proyecta, por lo que el pago de todas las apuestas de la polla se
         redirigen a su cuenta para que el dinero ingrese directamente a la
         organización.
