@@ -19,6 +19,7 @@ import firebase from '../../firebase';
 import { makeStyles } from '@material-ui/core/styles';
 import landingBackground from '../../assets/images/landing.jpg';
 import { getPrizes, prizeCssData } from '../../helpers/prizes_helper';
+import { PRIZES_INTERVALS } from '../../constants/prizes';
  
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -38,7 +39,12 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: '120px',
   },
   bountyChip: {
-    margin: theme.spacing(0, ' auto', 2),
+    margin: theme.spacing(0, 'auto', 2),
+    padding: theme.spacing(2),
+    height: 'fit-content',
+    width: 'fit-content',
+    fontSize: '30px',
+    fontWeight: 'bold'
   },
   cardHeader: {
     backgroundColor: lightBlue[100],
@@ -107,15 +113,27 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '80%',
     maxHeight: '80px',
   },
+  bountyContainer: {
+    display: 'flex',
+    alignItems: 'center'
+  },
+  prizeIntervalContent: {
+    fontSize: '15px'
+  },
+  prizeInterval: {
+    color: theme.palette.primary.main,
+    marginRight: theme.spacing(1)
+  }
 }));
 
 const Landing = () => {
   const classes = useStyles();
   const [bounty, setBounty] = useState(0);
   const [prizes, setPrizes] = useState([]);
-  const [pollasData] = useCollectionData(
-    firebase.firestore().collection('pollas').where('status', '==', 'paid')
-  );
+  // const [pollasData] = useCollectionData(
+  //   firebase.firestore().collection('pollas').where('status', '==', 'paid')
+  // );
+  const pollasData = [{ price: 10000 }, { price: 2000 }]
 
   useEffect(() => {
     if (pollasData) {
@@ -143,16 +161,6 @@ const Landing = () => {
             flexDirection: 'column',
           }}
         >
-          <Chip
-            color="primary"
-            icon={<MoneyIcon />}
-            className={classes.bountyChip}
-            label={
-              <div>
-                Monto recaudado: $<CountUp end={bounty} separator="." />
-              </div>
-            }
-          />
           <Typography
             component="h1"
             variant="h2"
@@ -196,6 +204,18 @@ const Landing = () => {
           </div>
         </Container>
       </div>
+      <div className={classes.bountyContainer}>
+        <Chip
+            color="primary"
+            icon={<MoneyIcon />}
+            className={classes.bountyChip}
+            label={
+              <div>
+                Monto recaudado: $<CountUp end={bounty} separator="." />
+              </div>
+            }
+          />
+      </div>
       <Container maxWidth="md" component="main">
         <Grid container spacing={5} alignItems="flex-end">
           {prizes.map((prize) => (
@@ -219,6 +239,24 @@ const Landing = () => {
                     src={prize.image}
                     className={prize.className}
                   />
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+      <Container maxWidth="md" component="main">
+        <Grid container spacing={5} alignItems="flex-end">
+          {PRIZES_INTERVALS.map((prizePlace, index) => (
+            <Grid item key={index} xs={12} md={4}>
+              <Card>
+                <CardContent className={classes.prizeIntervalContent}>
+                  {prizePlace.map((interval) => (
+                    <div key={interval.max}>
+                      <span className={classes.prizeInterval}>{`< ${interval.max}`}</span>
+                      {`${interval.amount} ${interval.extra}`}
+                    </div>
+                  ))}
                 </CardContent>
               </Card>
             </Grid>
