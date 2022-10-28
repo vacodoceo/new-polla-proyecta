@@ -94,22 +94,10 @@ export const PRIZES = [
 export const PRIZES_INTERVALS = [
   [
     {
-      min: 0,
-      max: '350k',
-      amount: '15k',
-      extra: ''
-    },
-    {
-      min: '350k',
-      max: '600k',
-      amount: '20k',
-      extra: '+ premio sorpresa'
-    },
-    {
-      min: '600k',
-      max: '850k',
-      amount: '20k',
-      extra: '+ 1% del pozo total'
+      min: '1.2m',
+      max: 'inf',
+      amount: '30k',
+      extra: '+ 3% del pozo total'
     },
     {
       min: '850k',
@@ -118,30 +106,30 @@ export const PRIZES_INTERVALS = [
       extra: '+ 2% del pozo total'
     },
     {
-      min: 1200000,
-      max: 'inf',
-      amount: '30k',
-      extra: '+ 3% del pozo total'
-    }
-  ],
-  [
-    {
-      min: 0,
-      max: '350k',
-      amount: '30k',
-      extra: ''
+      min: '600k',
+      max: '850k',
+      amount: '20k',
+      extra: '+ 1% del pozo total'
     },
     {
       min: '350k',
       max: '600k',
-      amount: '40k',
-      extra: '+ 2% del pozo total'
+      amount: '20k',
+      extra: '+ premio sorpresa'
     },
     {
-      min: '600k',
-      max: '850k',
-      amount: '40k',
-      extra: '+ 4% del pozo total'
+      min: 0,
+      max: '350k',
+      amount: '15k',
+      extra: ''
+    }
+  ],
+  [
+    {
+      min: '1.2m',
+      max: 'inf',
+      amount: '50k',
+      extra: '+ 6% del pozo total'
     },
     {
       min: '850k',
@@ -150,30 +138,30 @@ export const PRIZES_INTERVALS = [
       extra: '+ 5% del pozo total'
     },
     {
-      min: '1.2m',
-      max: 'inf',
-      amount: '50k',
-      extra: '+ 6% del pozo total'
-    }
-  ],
-  [
-    {
-      min: 0,
-      max: '350k',
-      amount: '5k',
-      extra: ''
+      min: '600k',
+      max: '850k',
+      amount: '40k',
+      extra: '+ 4% del pozo total'
     },
     {
       min: '350k',
       max: '600k',
-      amount: '10k',
-      extra: ''
+      amount: '40k',
+      extra: '+ 2% del pozo total'
     },
     {
-      min: '600k',
-      max: '850k',
-      amount: '10k',
-      extra: '+ premio sorpresa'
+      min: 0,
+      max: '350k',
+      amount: '30k',
+      extra: ''
+    }
+  ],
+  [
+    {
+      min: '1.2m',
+      max: 'inf',
+      amount: '20k',
+      extra: '+ 1% del pozo total'
     },
     {
       min: '850k',
@@ -182,11 +170,23 @@ export const PRIZES_INTERVALS = [
       extra: '+ premio sorpresa'
     },
     {
-      min: '1.2m',
-      max: 'inf',
-      amount: '20k',
-      extra: '+ 1% del pozo total'
-    }
+      min: '600k',
+      max: '850k',
+      amount: '10k',
+      extra: '+ premio sorpresa'
+    },
+    {
+      min: '350k',
+      max: '600k',
+      amount: '10k',
+      extra: ''
+    },
+    {
+      min: 0,
+      max: '350k',
+      amount: '5k',
+      extra: ''
+    },
   ]
 ]
 

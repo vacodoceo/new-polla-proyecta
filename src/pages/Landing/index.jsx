@@ -9,7 +9,7 @@ import {
   Chip,
   Container,
   Grid,
-  Typography,
+  Typography
 } from '@material-ui/core';
 import { MonetizationOn as MoneyIcon } from '@material-ui/icons';
 import { lightBlue } from '@material-ui/core/colors';
@@ -118,11 +118,21 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center'
   },
   prizeIntervalContent: {
-    fontSize: '15px'
+    fontSize: '15px',
+    margin: 'auto',
+    width: 'fit-content',
+    padding: theme.spacing(2)
   },
   prizeInterval: {
     color: theme.palette.primary.main,
-    marginRight: theme.spacing(1)
+    marginRight: theme.spacing(0),
+    width: '4em',
+    marginLeft: theme.spacing(0),
+    padding: theme.spacing(0)
+  },
+  priceIntervalContainer: {
+    padding: theme.spacing(0),
+    display: 'flex'
   }
 }));
 
@@ -130,10 +140,9 @@ const Landing = () => {
   const classes = useStyles();
   const [bounty, setBounty] = useState(0);
   const [prizes, setPrizes] = useState([]);
-  // const [pollasData] = useCollectionData(
-  //   firebase.firestore().collection('pollas').where('status', '==', 'paid')
-  // );
-  const pollasData = [{ price: 10000 }, { price: 2000 }]
+  const [pollasData] = useCollectionData(
+    firebase.firestore().collection('pollas').where('status', '==', 'paid')
+  );
 
   useEffect(() => {
     if (pollasData) {
@@ -252,10 +261,12 @@ const Landing = () => {
               <Card>
                 <CardContent className={classes.prizeIntervalContent}>
                   {prizePlace.map((interval) => (
-                    <div key={interval.max}>
-                      <span className={classes.prizeInterval}>{`< ${interval.max}`}</span>
+                    <Container key={interval.max} className={classes.priceIntervalContainer}>
+                      <Container key={interval.max} className={classes.prizeInterval}>
+                        {`> ${interval.min}`}
+                      </Container>
                       {`${interval.amount} ${interval.extra}`}
-                    </div>
+                    </Container>
                   ))}
                 </CardContent>
               </Card>
