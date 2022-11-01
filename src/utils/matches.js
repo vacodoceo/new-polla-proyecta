@@ -4,64 +4,161 @@ import { groups } from './countries';
 
 export const initResults = {
   groups,
-  quarterFinals: [
+  roundOfSixteen: [
     {
-      name: 'Partido 21 - 2A v/s 3B',
-      firstCountry: {
-        value: groups.A[1],
-        score: 0,
-        winner: false,
-      },
-      secondCountry: {
-        value: groups.B[2],
-        score: 0,
-        winner: false,
-      },
-    },
-    {
-      name: 'Partido 22 - 1A v/s 4B',
+      name: 'O1 - 1A v/s 2B',
       firstCountry: {
         value: groups.A[0],
         score: 0,
         winner: false,
       },
       secondCountry: {
-        value: groups.B[3],
-        score: 0,
-        winner: false,
-      },
-    },
-
-    {
-      name: 'Partido 23 - 2B v/s 3A',
-      firstCountry: {
         value: groups.B[1],
         score: 0,
         winner: false,
       },
-      secondCountry: {
-        value: groups.A[2],
+    },
+    {
+      name: 'O2 - 2A v/s 1B',
+      firstCountry: {
+        value: groups.A[1],
         score: 0,
         winner: false,
       },
-    },
-    {
-      name: 'Partido 24 - 1B v/s 4A',
-      firstCountry: {
+      secondCountry: {
         value: groups.B[0],
         score: 0,
         winner: false,
       },
+    },
+    {
+      name: 'O3 - 1C v/s 2D',
+      firstCountry: {
+        value: groups.C[0],
+        score: 0,
+        winner: false,
+      },
       secondCountry: {
-        value: groups.A[3],
+        value: groups.D[1],
         score: 0,
         winner: false,
       },
     },
+    {
+      name: 'O4 - 2C v/s 1D',
+      firstCountry: {
+        value: groups.C[1],
+        score: 0,
+        winner: false,
+      },
+      secondCountry: {
+        value: groups.D[0],
+        score: 0,
+        winner: false,
+      },
+    },
+    {
+      name: 'O5 - 1E v/s F',
+      firstCountry: {
+        value: groups.E[0],
+        score: 0,
+        winner: false,
+      },
+      secondCountry: {
+        value: groups.F[1],
+        score: 0,
+        winner: false,
+      },
+    },
+    {
+      name: 'O6 - 2E v/s 1F',
+      firstCountry: {
+        value: groups.E[1],
+        score: 0,
+        winner: false,
+      },
+      secondCountry: {
+        value: groups.F[0],
+        score: 0,
+        winner: false,
+      },
+    },
+    {
+      name: 'O7 - 1H v/s 2G',
+      firstCountry: {
+        value: groups.H[0],
+        score: 0,
+        winner: false,
+      },
+      secondCountry: {
+        value: groups.G[1],
+        score: 0,
+        winner: false,
+      },
+    },
+    {
+      name: 'O8 - 2H v/s 1G',
+      firstCountry: {
+        value: groups.H[1],
+        score: 0,
+        winner: false,
+      },
+      secondCountry: {
+        value: groups.G[0],
+        score: 0,
+        winner: false,
+      },
+    }
+  ],
+  quarterFinals: [
+    {
+      name: 'C1 - GO1 v/s GO2',
+      firstCountry: {
+        score: 0,
+        winner: false,
+      },
+      secondCountry: {
+        score: 0,
+        winner: false,
+      },
+    },
+    {
+      name: 'C2 - GO3 v/s GO4',
+      firstCountry: {
+        score: 0,
+        winner: false,
+      },
+      secondCountry: {
+        score: 0,
+        winner: false,
+      },
+    },
+    {
+      name: 'C3 - GO5 v/s GO6',
+      firstCountry: {
+        score: 0,
+        winner: false,
+      },
+      secondCountry: {
+        score: 0,
+        winner: false,
+      },
+    },
+    {
+      name: 'C4 - GO7 v/s GO8',
+      firstCountry: {
+        score: 0,
+        winner: false,
+      },
+      secondCountry: {
+        score: 0,
+        winner: false,
+      },
+    }
   ],
   semiFinals: [
     {
-      name: 'Partido 25 - G21 v/s G22',
+      name: 'S1 - GC1 v/s GC2',
       firstCountry: {
         score: 0,
         winner: false,
@@ -72,7 +169,7 @@ export const initResults = {
       },
     },
     {
-      name: 'Partido 26 - G24 v/s G23',
+      name: 'S2 - GC3 v/s GC4',
       firstCountry: {
         score: 0,
         winner: false,
@@ -80,12 +177,12 @@ export const initResults = {
       secondCountry: {
         score: 0,
         winner: false,
-      },
-    },
+      }
+    }
   ],
   finals: [
     {
-      name: 'Tercer lugar - P26 v/s P25',
+      name: 'Tercer lugar - PS1 v/s PS2',
       firstCountry: {
         score: 0,
         winner: false,
@@ -96,7 +193,7 @@ export const initResults = {
       },
     },
     {
-      name: 'Final - G26 v/s G25',
+      name: 'Final - GS1 v/s GS2',
       firstCountry: {
         score: 0,
         winner: false,
@@ -105,20 +202,21 @@ export const initResults = {
         score: 0,
         winner: false,
       },
-    },
-  ],
+    }
+  ]
 };
 
 export const assortResults = (results) => {
   const {
-    groups: { A, B },
+    groups: { A, B, C, D, E, F, G, H },
+    roundOfSixteen,
     quarterFinals,
     semiFinals,
     finals,
   } = results;
 
   // Assign winner/loser and normalize scores
-  [...quarterFinals, ...semiFinals, ...finals].forEach((match) => {
+  [...roundOfSixteen, ...quarterFinals, ...semiFinals, ...finals].forEach((match) => {
     let { firstCountry, secondCountry } = match;
 
     if (firstCountry.score > secondCountry.score) {
@@ -133,15 +231,33 @@ export const assortResults = (results) => {
     match.secondCountry.score = Math.max(0, Math.min(9, secondCountry.score));
   });
 
+  // Assort round of sixteen teams
+  roundOfSixteen[0].firstCountry.value = A[0];
+  roundOfSixteen[0].secondCountry.value = B[1];
+  roundOfSixteen[1].firstCountry.value = A[1];
+  roundOfSixteen[1].secondCountry.value = B[0];
+  roundOfSixteen[2].firstCountry.value = C[0];
+  roundOfSixteen[2].secondCountry.value = D[1];
+  roundOfSixteen[3].firstCountry.value = C[1];
+  roundOfSixteen[3].secondCountry.value = D[0];
+  roundOfSixteen[4].firstCountry.value = E[0];
+  roundOfSixteen[4].secondCountry.value = F[1];
+  roundOfSixteen[5].firstCountry.value = E[1];
+  roundOfSixteen[5].secondCountry.value = F[0];
+  roundOfSixteen[6].firstCountry.value = G[0];
+  roundOfSixteen[6].secondCountry.value = H[1];
+  roundOfSixteen[7].firstCountry.value = G[1];
+  roundOfSixteen[7].secondCountry.value = H[0];
+
   // Assort quarter finals teams
-  quarterFinals[0].firstCountry.value = A[1];
-  quarterFinals[0].secondCountry.value = B[2];
-  quarterFinals[1].firstCountry.value = A[0];
-  quarterFinals[1].secondCountry.value = B[3];
-  quarterFinals[2].firstCountry.value = B[1];
-  quarterFinals[2].secondCountry.value = A[2];
-  quarterFinals[3].firstCountry.value = B[0];
-  quarterFinals[3].secondCountry.value = A[3];
+  quarterFinals[0].firstCountry.value = getWinner(roundOfSixteen[0]);
+  quarterFinals[0].secondCountry.value = getWinner(roundOfSixteen[1]);
+  quarterFinals[1].firstCountry.value = getWinner(roundOfSixteen[2]);
+  quarterFinals[1].secondCountry.value = getWinner(roundOfSixteen[3]);
+  quarterFinals[2].firstCountry.value = getWinner(roundOfSixteen[4]);
+  quarterFinals[2].secondCountry.value = getWinner(roundOfSixteen[5]);
+  quarterFinals[3].firstCountry.value = getWinner(roundOfSixteen[6]);
+  quarterFinals[3].secondCountry.value = getWinner(roundOfSixteen[7]);
 
   // Assort semi finals teams
   semiFinals[0].firstCountry.value = getWinner(quarterFinals[0]);

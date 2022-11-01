@@ -30,6 +30,42 @@ const BetGroupPhase = ({ order, handleGroupOrderChange }) => {
         order={order.B}
         handleChange={handleGroupOrderChange}
       />
+      <OrderableGroup
+        title="Grupo C"
+        id="C"
+        order={order.C}
+        handleChange={handleGroupOrderChange}
+      />
+      <OrderableGroup
+        title="Grupo D"
+        id="D"
+        order={order.D}
+        handleChange={handleGroupOrderChange}
+      />
+      <OrderableGroup
+        title="Grupo E"
+        id="E"
+        order={order.E}
+        handleChange={handleGroupOrderChange}
+      />
+      <OrderableGroup
+        title="Grupo F"
+        id="F"
+        order={order.F}
+        handleChange={handleGroupOrderChange}
+      />
+      <OrderableGroup
+        title="Grupo G"
+        id="G"
+        order={order.G}
+        handleChange={handleGroupOrderChange}
+      />
+      <OrderableGroup
+        title="Grupo H"
+        id="H"
+        order={order.H}
+        handleChange={handleGroupOrderChange}
+      />
     </div>
   );
 };

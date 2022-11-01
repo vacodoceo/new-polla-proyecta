@@ -21,7 +21,7 @@ import CreatePollaDialog from './CreatePollaDialog';
 import FeedbackDialog from '../../components/FeedbackDialog';
 import { initResults, assortResults } from '../../utils/matches';
 
-const steps = ['Fase de grupos', 'Cuartos de final', 'Semifinal', 'Final'];
+const steps = ['Fase de grupos', 'Octavos de final', 'Cuartos de final', 'Semifinal', 'Final'];
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -115,12 +115,20 @@ const Bet = () => {
       case 1:
         return (
           <MatchesPhase
+            title="Octavos de final"
+            matches={results.roundOfSixteen}
+            handleMatchChange={handleMatchChange('roundOfSixteen')}
+          />
+        );
+      case 2:
+        return (
+          <MatchesPhase
             title="Cuartos de Final"
             matches={results.quarterFinals}
             handleMatchChange={handleMatchChange('quarterFinals')}
           />
         );
-      case 2:
+      case 3:
         return (
           <MatchesPhase
             title="Semifinal"
@@ -128,7 +136,7 @@ const Bet = () => {
             handleMatchChange={handleMatchChange('semiFinals')}
           />
         );
-      case 3:
+      case 4:
         return (
           <MatchesPhase
             title="Tercer lugar y final"
@@ -146,14 +154,18 @@ const Bet = () => {
       case 0:
         return false;
       case 1:
-        return !results.quarterFinals.every(
+        return !results.roundOfSixteen.every(
           (match) => match.firstCountry.winner || match.secondCountry.winner
         );
       case 2:
-        return !results.semiFinals.every(
+        return !results.quarterFinals.every(
           (match) => match.firstCountry.winner || match.secondCountry.winner
         );
       case 3:
+        return !results.semiFinals.every(
+          (match) => match.firstCountry.winner || match.secondCountry.winner
+        );
+      case 4:
         return !results.finals.every(
           (match) => match.firstCountry.winner || match.secondCountry.winner
         );
