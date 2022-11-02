@@ -133,6 +133,11 @@ const useStyles = makeStyles((theme) => ({
   priceIntervalContainer: {
     padding: theme.spacing(0),
     display: 'flex'
+  },
+  betContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    textDecoration: 'none'
   }
 }));
 
@@ -140,9 +145,10 @@ const Landing = () => {
   const classes = useStyles();
   const [bounty, setBounty] = useState(0);
   const [prizes, setPrizes] = useState([]);
-  const [pollasData] = useCollectionData(
-    firebase.firestore().collection('pollas').where('status', '==', 'paid')
-  );
+  // const [pollasData] = useCollectionData(
+  //   firebase.firestore().collection('pollas').where('status', '==', 'paid')
+  // );
+  const pollasData = [{ price: 0}]
 
   useEffect(() => {
     if (pollasData) {
@@ -212,6 +218,13 @@ const Landing = () => {
             </Grid>
           </div>
         </Container>
+      </div>
+      <div className={classes.betContainer}>
+        <Link to="/bet">
+          <Button variant="contained" color="primary">
+            ¡Apuesta ya!
+          </Button>
+        </Link>
       </div>
       <div className={classes.bountyContainer}>
         <Chip

@@ -94,99 +94,98 @@ export const PRIZES = [
 export const PRIZES_INTERVALS = [
   [
     {
-      min: '1.2m',
+      min: '1.2 M',
       max: 'inf',
-      amount: '30k',
+      amount: '30 K',
       extra: '+ 3% del pozo total'
     },
     {
-      min: '850k',
-      max: '1.2m',
-      amount: '30k',
+      min: '850 K',
+      max: '1.2 M',
+      amount: '30 K',
       extra: '+ 2% del pozo total'
     },
     {
-      min: '600k',
-      max: '850k',
-      amount: '20k',
+      min: '600 K',
+      max: '850 K',
+      amount: '20 K',
       extra: '+ 1% del pozo total'
     },
     {
-      min: '350k',
-      max: '600k',
-      amount: '20k',
+      min: '350 K',
+      max: '600 K',
+      amount: '20 K',
       extra: '+ premio sorpresa'
     },
     {
       min: 0,
-      max: '350k',
-      amount: '15k',
+      max: '350 K',
+      amount: '15 K',
       extra: ''
     }
   ],
   [
     {
-      min: '1.2m',
+      min: '1.2 M',
       max: 'inf',
-      amount: '50k',
+      amount: '50 K',
       extra: '+ 6% del pozo total'
     },
     {
-      min: '850k',
-      max: '1.2m',
-      amount: '45k',
+      min: '850 K',
+      max: '1.2 M',
+      amount: '45 K',
       extra: '+ 5% del pozo total'
     },
     {
-      min: '600k',
-      max: '850k',
-      amount: '40k',
+      min: '600 K',
+      max: '850 K',
+      amount: '40 K',
       extra: '+ 4% del pozo total'
     },
     {
-      min: '350k',
-      max: '600k',
-      amount: '40k',
+      min: '350 K',
+      max: '600 K',
+      amount: '40 K',
       extra: '+ 2% del pozo total'
     },
     {
       min: 0,
-      max: '350k',
-      amount: '30k',
+      max: '350 K',
+      amount: '30 K',
       extra: ''
     }
   ],
   [
     {
-      min: '1.2m',
+      min: '1.2 M',
       max: 'inf',
-      amount: '20k',
+      amount: '20 K',
       extra: '+ 1% del pozo total'
     },
     {
-      min: '850k',
-      max: '1.2m',
-      amount: '15k',
+      min: '850 K',
+      max: '1.2 M',
+      amount: '15 K',
       extra: '+ premio sorpresa'
     },
     {
-      min: '600k',
-      max: '850k',
-      amount: '10k',
+      min: '600 K',
+      max: '850 K',
+      amount: '10 K',
       extra: '+ premio sorpresa'
     },
     {
-      min: '350k',
-      max: '600k',
-      amount: '10k',
+      min: '350 K',
+      max: '600 K',
+      amount: '10 K',
       extra: ''
     },
     {
       min: 0,
-      max: '350k',
-      amount: '5k',
+      max: '350 K',
+      amount: '5 K',
       extra: ''
     },
   ]
 ]
-

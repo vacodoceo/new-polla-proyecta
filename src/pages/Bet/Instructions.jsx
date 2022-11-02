@@ -3,8 +3,10 @@ import { makeStyles, Typography } from '@material-ui/core';
 export const instructionsSteps = {
   'Fase de Grupos':
     'Debes ingresar los resultados de la fase de grupo, para ello debes agarrar y arrastrar los equipos de cada grupo hasta que queden en el orden que creas.',
+  'Octavos de Final':
+    'Después, en la pestaña de octavos de final, debes ingresar los goles del tiempo reglamentario para cada partido. En caso que apuestes por un empate deberás marcar en la corona correspondiente qué equipo crees que pasará de ronda.',
   'Cuartos de Final':
-    'Después, en la pestaña de cuartos de final, debes ingresar los goles del tiempo reglamentario para cada partido. En caso que apuestes por un empate deberás marcar en la corona correspondiente qué equipo crees que pasará de ronda.',
+    'Al igual que en los Octavos de Final, debes definir los goles del tiempo reglamentario para cada partido. En caso que apuestes por un empate deberás marcar en la corona correspondiente qué equipo crees que pasará de ronda.',
   Semifinal:
     'Una vez ingresado todos los resultados de los Cuartos de Final, podrás avanzar a la fase de las Semifinales. Aquí deberás seleccionar los goles del tiempo reglamentario para cada semifinal, en caso que apuestes por un empate deberás marcar la corona correspondiente qué equipo crees que pasará de ronda.',
   Final:
