@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import {
+  Button,
   Checkbox,
   Chip,
   Container,
@@ -12,6 +13,7 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  Tooltip,
   Typography,
 } from '@material-ui/core';
 import { green, red } from '@material-ui/core/colors';
@@ -71,6 +73,11 @@ const Pollas = () => {
     { idField: 'id' }
   );
   const [selectedPollas, setSelectedPollas] = useState([]);
+  const payPollasErrors = {
+    empty: '¡Debes seleccionar al menos 1 polla!',
+    paid: '¡Tienes seleccionadas 1 o más pollas pagadas!',
+  };
+  const [payError, setPayError] = useState(payPollasErrors.empty);
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
@@ -87,6 +94,20 @@ const Pollas = () => {
     }
     setSelectedPollas([...selectedPollas, pollaId]);
   };
+
+  useEffect(() => {
+    const selectedPollasData = selectedPollas.map((pollaId) =>
+      _.find(pollas, (polla) => polla.id === pollaId)
+    );
+
+    if (_.isEmpty(selectedPollasData)) {
+      setPayError(payPollasErrors.empty);
+    } else if (
+      !selectedPollasData.every((polla) => polla.status === 'unpaid')
+    ) {
+      setPayError(payPollasErrors.paid);
+    } else setPayError();
+  }, [selectedPollas]);
 
   const classes = useStyles();
   return (
@@ -158,7 +179,7 @@ const Pollas = () => {
           </Table>
         </div>
 
-        {/* <Tooltip
+        <Tooltip
           title={payError}
           aria-label="pay"
           disableHoverListener={!payError}
@@ -174,7 +195,7 @@ const Pollas = () => {
               Pagar
             </Button>
           </span>
-        </Tooltip> */}
+        </Tooltip>
       </Paper>
     </Container>
   );

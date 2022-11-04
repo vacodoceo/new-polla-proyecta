@@ -3,7 +3,7 @@ import thirdPlaceImage from '../assets/images/thirdPlace.png';
 import secondPlaceImage from '../assets/images/secondPlace.png';
 import firstPlaceImage from '../assets/images/firstPlace.png';
 
-export const prizeCssData = (classes) => ([
+const prizeCssData = (classes) => ([
   {
     title: 'Segundo lugar',
     className: classes.prizeImage,
@@ -21,7 +21,8 @@ export const prizeCssData = (classes) => ([
   },
 ])
 
-export const getPrizes = (bounty, cssData) => {
+export const getPrizes = (bounty, classes) => {
+  const cssData = prizeCssData(classes)
   const prize = PRIZES.find((prize) => (prize.min <= bounty && prize.max > bounty))
 
   const parsedPrize = prize.details.map((prizeDetail, index) => {

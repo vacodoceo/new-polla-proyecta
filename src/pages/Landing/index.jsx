@@ -18,9 +18,9 @@ import CountUp from 'react-countup';
 import firebase from '../../firebase';
 import { makeStyles } from '@material-ui/core/styles';
 import landingBackground from '../../assets/images/landing.jpg';
-import { getPrizes, prizeCssData } from '../../helpers/prizes_helper';
+import { getPrizes } from '../../helpers/prizes_helper';
 import { PRIZES_INTERVALS } from '../../constants/prizes';
- 
+
 const useStyles = makeStyles((theme) => ({
   '@global': {
     ul: {
@@ -39,12 +39,12 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: '120px',
   },
   bountyChip: {
-    margin: theme.spacing(0, 'auto', 2),
-    padding: theme.spacing(2),
+    margin: theme.spacing(0, 'auto', 0),
+    padding: theme.spacing(4),
     height: 'fit-content',
     width: 'fit-content',
-    fontSize: '30px',
-    fontWeight: 'bold'
+    fontSize: '50px',
+    fontWeight: 'bold',
   },
   cardHeader: {
     backgroundColor: lightBlue[100],
@@ -115,7 +115,9 @@ const useStyles = makeStyles((theme) => ({
   },
   bountyContainer: {
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: theme.palette.primary.main,
+    marginBottom: theme.spacing(3)
   },
   prizeIntervalContent: {
     fontSize: '15px',
@@ -134,21 +136,31 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0),
     display: 'flex'
   },
-  betContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    textDecoration: 'none'
+  betNowButton: {
+    position: 'fixed',
+    right: '4em',
+    bottom: '4em',
+    backgroundColor: '#efad4a',
+    color: theme.palette.primary.contrastText,
+    padding: theme.spacing(2),
+    fontSize: '1.2em',
+    '&:hover': {
+      backgroundColor: '#F3C580'
+    }
+  },
+  bountyIcon: {
+    width: '2.5em',
+    height: '2.5em'
   }
 }));
 
 const Landing = () => {
   const classes = useStyles();
   const [bounty, setBounty] = useState(0);
-  const [prizes, setPrizes] = useState([]);
-  // const [pollasData] = useCollectionData(
-  //   firebase.firestore().collection('pollas').where('status', '==', 'paid')
-  // );
-  const pollasData = [{ price: 0}]
+  const [prizes, setPrizes] = useState(getPrizes(bounty, classes));
+  const [pollasData] = useCollectionData(
+    firebase.firestore().collection('pollas').where('status', '==', 'paid')
+  );
 
   useEffect(() => {
     if (pollasData) {
@@ -158,8 +170,7 @@ const Landing = () => {
       );
       setBounty(newBounty);
 
-      const prizesCssData = prizeCssData(classes)
-      const prizesData = getPrizes(newBounty, prizesCssData)
+      const prizesData = getPrizes(newBounty, classes)
       setPrizes(prizesData)
     }
   }, [pollasData]);
@@ -219,17 +230,17 @@ const Landing = () => {
           </div>
         </Container>
       </div>
-      <div className={classes.betContainer}>
-        <Link to="/bet">
-          <Button variant="contained" color="primary">
-            ¡Apuesta ya!
-          </Button>
-        </Link>
-      </div>
+      <Button
+        className={classes.betNowButton}
+        component={Link}
+        to='/bet'
+      >
+        ¡Apuesta ya!
+      </Button>
       <div className={classes.bountyContainer}>
         <Chip
             color="primary"
-            icon={<MoneyIcon />}
+            icon={<MoneyIcon className={classes.bountyIcon}/>}
             className={classes.bountyChip}
             label={
               <div>

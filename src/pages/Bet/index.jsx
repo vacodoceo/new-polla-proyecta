@@ -65,6 +65,7 @@ const Bet = () => {
     const pollaIdResponse = await firebase
       .functions()
       .httpsCallable('createPolla')({ name, results, seller });
+    console.log('🚀 ~ file: index.jsx ~ line 68 ~ createPolla ~ pollaIdResponse', pollaIdResponse)
     setPollaId(pollaIdResponse.data);
     setCreatePollaDialogOpen(false);
     setFeedbackDialogOpen(true);
