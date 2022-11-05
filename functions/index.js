@@ -12,6 +12,7 @@ mercadopago.configure({
 
 exports.createPolla = functions.https.onCall(
   async ({ name, results, seller }, context) => {
+    context.set('Access-Control-Allow-Origin', '*');
     if (!context.auth || _.isEmpty(name)) {
       return;
     }
@@ -35,6 +36,7 @@ exports.createPolla = functions.https.onCall(
 
 exports.createPreference = functions.https.onCall(
   async ({ pollas }, context) => {
+    context.set('Access-Control-Allow-Origin', '*');
     if (!context.auth || _.isEmpty(pollas)) {
       return;
     }
@@ -78,6 +80,7 @@ exports.createPreference = functions.https.onCall(
 );
 
 exports.verifyPayment = functions.https.onCall(async (data, context) => {
+  context.set('Access-Control-Allow-Origin', '*');
   const { paymentId } = data;
 
   if (!context.auth || !paymentId) {
@@ -94,6 +97,7 @@ exports.verifyPayment = functions.https.onCall(async (data, context) => {
 });
 
 exports.webhookVerifyPayment = functions.https.onRequest(async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
   console.log(req.body);
   if (req.method === 'POST') {
     const { data } = req.body;
@@ -148,6 +152,24 @@ const getScore = (pollaResults, updatedResults) => {
     updatedGroups[group].forEach((country, standing) => {
       if (pollaGroups[group][standing] === country) score += 5;
     });
+  });
+
+  const { roundOfSixteen: pollaRoundOfSixteen } = pollaResults;
+  const { roundOfSixteen: updatedRoundOfSixteen } = updatedResults;
+
+  updatedRoundOfSixteen.forEach((updatedMatch, index) => {
+    const pollaMatch = pollaRoundOfSixteen[index];
+    if (getMatchWinner(pollaMatch) === getMatchWinner(updatedMatch)) score += 5;
+    if (pollaMatch.firstCountry.score === updatedMatch.firstCountry.score)
+      score += 2;
+    if (pollaMatch.secondCountry.score === updatedMatch.secondCountry.score)
+      score += 2;
+
+    const pollaScoreDiff =
+      pollaMatch.firstCountry.score - pollaMatch.secondCountry.score;
+    const updatedScoreDiff =
+      updatedMatch.firstCountry.score - updatedMatch.secondCountry.score;
+    if (pollaScoreDiff === updatedScoreDiff) score += 1;
   });
 
   const { quarterFinals: pollaQuarters } = pollaResults;
