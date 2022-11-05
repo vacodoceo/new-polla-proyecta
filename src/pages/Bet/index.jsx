@@ -62,6 +62,9 @@ const Bet = () => {
   }, [activeStep, results]);
 
   const createPolla = async (name, seller) => {
+    console.log('🚀 ~ file: index.jsx ~ line 65 ~ createPolla ~ seller', seller)
+    console.log('🚀 ~ file: index.jsx ~ line 65 ~ createPolla ~ name', name)
+    console.log('🚀 ~ file: index.jsx ~ line 68 ~ createPolla ~ results', results)
     const pollaIdResponse = await firebase
       .functions()
       .httpsCallable('createPolla')({ name, results, seller });

@@ -12,12 +12,11 @@ mercadopago.configure({
 
 exports.createPolla = functions.https.onCall(
   async ({ name, results, seller }, context) => {
-    context.set('Access-Control-Allow-Origin', '*');
     if (!context.auth || _.isEmpty(name)) {
       return;
     }
-
-    const docRef = await admin
+    try {
+      const docRef = await admin
       .firestore()
       .collection('pollas')
       .add({
@@ -30,13 +29,16 @@ exports.createPolla = functions.https.onCall(
         createdAt: admin.firestore.FieldValue.serverTimestamp()
       });
 
-    return docRef.id;
+      return docRef.id;
+    } catch (err) {
+      console.log(err);
+      return 123456789;
+    }
   }
 );
 
 exports.createPreference = functions.https.onCall(
   async ({ pollas }, context) => {
-    context.set('Access-Control-Allow-Origin', '*');
     if (!context.auth || _.isEmpty(pollas)) {
       return;
     }
@@ -80,7 +82,6 @@ exports.createPreference = functions.https.onCall(
 );
 
 exports.verifyPayment = functions.https.onCall(async (data, context) => {
-  context.set('Access-Control-Allow-Origin', '*');
   const { paymentId } = data;
 
   if (!context.auth || !paymentId) {
@@ -97,7 +98,6 @@ exports.verifyPayment = functions.https.onCall(async (data, context) => {
 });
 
 exports.webhookVerifyPayment = functions.https.onRequest(async (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
   console.log(req.body);
   if (req.method === 'POST') {
     const { data } = req.body;
