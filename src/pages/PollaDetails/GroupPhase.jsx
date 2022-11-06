@@ -30,6 +30,42 @@ const BetGroupPhase = ({ order }) => {
         order={order.B}
         draggable={false}
       />
+      <OrderableGroup
+        title="Grupo C"
+        id="C"
+        order={order.C}
+        draggable={false}
+      />
+      <OrderableGroup
+        title="Grupo D"
+        id="D"
+        order={order.D}
+        draggable={false}
+      />
+      <OrderableGroup
+        title="Grupo E"
+        id="E"
+        order={order.E}
+        draggable={false}
+      />
+      <OrderableGroup
+        title="Grupo F"
+        id="F"
+        order={order.F}
+        draggable={false}
+      />
+      <OrderableGroup
+        title="Grupo G"
+        id="G"
+        order={order.G}
+        draggable={false}
+      />
+      <OrderableGroup
+        title="Grupo H"
+        id="H"
+        order={order.H}
+        draggable={false}
+      />
     </div>
   );
 };

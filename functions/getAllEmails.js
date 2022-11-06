@@ -5,7 +5,7 @@ const app = admin.initializeApp({
 });
 
 const getPollas = async () => {
-  const pollasReference = app.firestore().collection('pollas');
+  const pollasReference = app.firestore().collection('pollas_qatar');
   const pollasQuery = pollasReference.where('status', '==', 'paid');
   const pollas = await pollasQuery.get();
   return pollas;

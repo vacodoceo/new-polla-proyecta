@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
 const Pollas = () => {
   const [user] = useAuthState(firebase.auth());
   const [pollas] = useCollectionData(
-    firebase.firestore().collection('pollas').where('userId', '==', user.uid),
+    firebase.firestore().collection('pollas_qatar').where('userId', '==', user.uid),
     { idField: 'id' }
   );
   const [selectedPollas, setSelectedPollas] = useState([]);

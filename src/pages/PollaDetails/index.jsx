@@ -75,15 +75,22 @@ const PollaDetails = () => {
       case 1:
         return (
           <MatchesPhase
-            title="Cuartos de Final"
-            matches={polla.results.quarterFinals}
+            title="Octavos de Final"
+            matches={polla.results.roundOfSixteen}
           />
         );
       case 2:
         return (
-          <MatchesPhase title="Semifinal" matches={polla.results.semiFinals} />
+          <MatchesPhase
+            title="Cuartos de Final"
+            matches={polla.results.quarterFinals}
+          />
         );
       case 3:
+        return (
+          <MatchesPhase title="Semifinal" matches={polla.results.semiFinals} />
+        );
+      case 4:
         return (
           <MatchesPhase
             title="Tercer lugar y final"
@@ -154,7 +161,7 @@ const PollaDetails = () => {
           onClick={() => setActiveStep(activeStep + 1)}
           variant="contained"
           color="primary"
-          disabled={activeStep === 3}
+          disabled={activeStep === 4}
         >
           Siguiente
         </Button>

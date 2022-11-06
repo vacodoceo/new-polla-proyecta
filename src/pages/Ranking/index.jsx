@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 const Ranking = () => {
   const classes = useStyles();
   const [pollas, loading] = useCollectionDataOnce(
-    firebase.firestore().collection('pollas').where('status', '==', 'paid'),
+    firebase.firestore().collection('pollas_qatar').where('status', '==', 'paid'),
     { idField: 'id' }
   );
 

@@ -18,7 +18,7 @@ exports.createPolla = functions.https.onCall(
     try {
       const docRef = await admin
       .firestore()
-      .collection('pollas')
+      .collection('pollas_qatar')
       .add({
         name,
         results,
@@ -44,8 +44,8 @@ exports.createPreference = functions.https.onCall(
     }
 
     const getPrice = quantity => {
-      if (quantity < 2) return 3000;
-      else if (quantity < 7) return 2500;
+      if (quantity < 3) return 2500;
+      else if (quantity < 9) return 2250;
       return 2000;
     };
 
@@ -127,11 +127,11 @@ const validatePolla = async pollaId => {
 };
 
 exports.onUpdateMatchesResultsTrigger = functions.firestore
-  .document('matches/results')
+  .document('matches_qatar/results')
   .onUpdate(async change => {
     const updatedResults = change.after.data();
 
-    const pollasReference = app.firestore().collection('pollas');
+    const pollasReference = app.firestore().collection('pollas_qatar');
     const pollasQuery = pollasReference.where('status', '==', 'paid');
     const pollas = await pollasQuery.get();
 

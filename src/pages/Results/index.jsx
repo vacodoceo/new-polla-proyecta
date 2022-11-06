@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Results = () => {
   const [results, loading, error] = useDocumentDataOnce(
-    firebase.firestore().doc(`matches/results`)
+    firebase.firestore().doc(`matches_qatar/results`)
   );
   const [activeStep, setActiveStep] = useState(0);
 
@@ -72,13 +72,20 @@ const Results = () => {
       case 1:
         return (
           <MatchesPhase
+            title="Octavos de Final"
+            matches={results.roundOfSixteen}
+          />
+        );
+      case 2:
+        return (
+          <MatchesPhase
             title="Cuartos de Final"
             matches={results.quarterFinals}
           />
         );
-      case 2:
-        return <MatchesPhase title="Semifinal" matches={results.semiFinals} />;
       case 3:
+        return <MatchesPhase title="Semifinal" matches={results.semiFinals} />;
+      case 4:
         return (
           <MatchesPhase title="Tercer lugar y final" matches={results.finals} />
         );
@@ -92,10 +99,12 @@ const Results = () => {
       case 0:
         return !results.groups;
       case 1:
-        return !results.quarterFinals;
+        return !results.roundOfSixteen;
       case 2:
-        return !results.semiFinals;
+        return !results.quarterFinals;
       case 3:
+        return !results.semiFinals;
+      case 4:
         return !results.finals;
       default:
         return true;
@@ -153,7 +162,7 @@ const Results = () => {
           onClick={() => setActiveStep(activeStep + 1)}
           variant="contained"
           color="primary"
-          disabled={activeStep === 3 || isStepDisabled(activeStep + 1)}
+          disabled={activeStep === 4 || isStepDisabled(activeStep + 1)}
         >
           Siguiente
         </Button>

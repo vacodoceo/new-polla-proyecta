@@ -17,7 +17,7 @@ import CountUp from 'react-countup';
 
 import firebase from '../../firebase';
 import { makeStyles } from '@material-ui/core/styles';
-import landingBackground from '../../assets/images/landing.jpg';
+import landingBackground from '../../assets/images/landing2.jpg';
 import { getPrizes } from '../../helpers/prizes_helper';
 import { PRIZES_INTERVALS } from '../../constants/prizes';
 
@@ -159,7 +159,7 @@ const Landing = () => {
   const [bounty, setBounty] = useState(0);
   const [prizes, setPrizes] = useState(getPrizes(bounty, classes));
   const [pollasData] = useCollectionData(
-    firebase.firestore().collection('pollas').where('status', '==', 'paid')
+    firebase.firestore().collection('pollas_qatar').where('status', '==', 'paid')
   );
 
   useEffect(() => {
