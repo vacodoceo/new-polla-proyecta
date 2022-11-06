@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
 const PollaDetails = () => {
   const { pollaId } = useParams();
   const [polla, loading, error] = useDocumentDataOnce(
-    firebase.firestore().doc(`pollas/${pollaId}`)
+    firebase.firestore().doc(`pollas_qatar/${pollaId}`)
   );
   const [activeStep, setActiveStep] = useState(0);
 

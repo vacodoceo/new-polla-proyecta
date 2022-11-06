@@ -117,7 +117,7 @@ exports.webhookVerifyPayment = functions.https.onRequest(async (req, res) => {
 
 const validatePolla = async pollaId => {
   try {
-    const pollaDoc = app.firestore().doc(`pollas/${pollaId}`);
+    const pollaDoc = app.firestore().doc(`pollas_qatar/${pollaId}`);
     const pollaSnapshot = await pollaDoc.get();
     return pollaSnapshot.data().status === 'unpaid';
   } catch (err) {

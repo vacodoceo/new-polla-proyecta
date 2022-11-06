@@ -25,7 +25,7 @@ const verifyPayment = async (paymentId) => {
 
 const payPolla = async (pollaId, price, paymentId) => {
   try {
-    const pollaDoc = app.firestore().doc(`pollas/${pollaId}`);
+    const pollaDoc = app.firestore().doc(`pollas_qatar/${pollaId}`);
     const updateResult = await pollaDoc.update({
       status: 'paid',
       price,
