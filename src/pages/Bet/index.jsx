@@ -62,13 +62,9 @@ const Bet = () => {
   }, [activeStep, results]);
 
   const createPolla = async (name, seller) => {
-    console.log('🚀 ~ file: index.jsx ~ line 65 ~ createPolla ~ seller', seller)
-    console.log('🚀 ~ file: index.jsx ~ line 65 ~ createPolla ~ name', name)
-    console.log('🚀 ~ file: index.jsx ~ line 68 ~ createPolla ~ results', results)
     const pollaIdResponse = await firebase
       .functions()
       .httpsCallable('createPolla')({ name, results, seller });
-    console.log('🚀 ~ file: index.jsx ~ line 68 ~ createPolla ~ pollaIdResponse', pollaIdResponse)
     setPollaId(pollaIdResponse.data);
     setCreatePollaDialogOpen(false);
     setFeedbackDialogOpen(true);
@@ -192,6 +188,14 @@ const Bet = () => {
     <>
       <Button onClick={() => window.location.reload()} variant="contained">
         Crear otra polla
+      </Button>
+      <Button
+        component={Link}
+        to={'/pollas'}
+        variant="contained"
+        color="primary"
+      >
+        Ir a mis pollas
       </Button>
       <Button
         component={Link}

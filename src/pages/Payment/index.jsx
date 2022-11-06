@@ -169,7 +169,7 @@ const Payment = () => {
           Nuestro único medio de pago mediante esta plataforma es{" "}
           <em>Mercado Pago</em>. Si tienes dudas sobre como funciona este método
           o prefieres transferirnos el dinero directamente, no dudes en
-          contactarnos por correo (ti@trabajosproyecta.cl) o instagram
+          contactarnos en nuestro instagram
           (@proyectauc)
         </Typography>
 

@@ -58,7 +58,7 @@ exports.createPreference = functions.https.onCall(
     const preference = {
       items: [
         {
-          title: 'Pollamérica - Proyecta',
+          title: 'Polla Mundialista - Proyecta',
           description: pollas.toString(),
           unit_price: getPrice(pollas.length),
           quantity: pollas.length
