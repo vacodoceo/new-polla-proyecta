@@ -44,7 +44,7 @@ exports.createPreference = functions.https.onCall(
     }
 
     const getPrice = quantity => {
-      if (quantity < 3) return 2500;
+      if (quantity < 3) return 50;
       else if (quantity < 9) return 2250;
       return 2000;
     };

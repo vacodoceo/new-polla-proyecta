@@ -244,10 +244,10 @@ export const assortResults = (results) => {
   roundOfSixteen[4].secondCountry.value = F[1];
   roundOfSixteen[5].firstCountry.value = E[1];
   roundOfSixteen[5].secondCountry.value = F[0];
-  roundOfSixteen[6].firstCountry.value = G[0];
-  roundOfSixteen[6].secondCountry.value = H[1];
-  roundOfSixteen[7].firstCountry.value = G[1];
-  roundOfSixteen[7].secondCountry.value = H[0];
+  roundOfSixteen[6].firstCountry.value = H[0];
+  roundOfSixteen[6].secondCountry.value = G[1];
+  roundOfSixteen[7].firstCountry.value = H[1];
+  roundOfSixteen[7].secondCountry.value = G[0];
 
   // Assort quarter finals teams
   quarterFinals[0].firstCountry.value = getWinner(roundOfSixteen[0]);
