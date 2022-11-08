@@ -52,8 +52,7 @@ const faqs = [
     title: '¿Hasta qué día puedo apostar?',
     body: (
       <Typography>
-        Será posible participar hasta el día anterior a que inicie la Copa
-        América, es decir, se podrá comprar hasta el 19 de Noviembre a las 23:59
+        Será posible participar hasta el día anterior a que inicie el Mundial de Qatar, es decir, se podrá comprar hasta el 19 de Noviembre a las 23:59
       </Typography>
     ),
   },

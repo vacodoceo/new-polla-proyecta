@@ -58,7 +58,7 @@ export const initResults = {
       },
     },
     {
-      name: 'O3 - 1E v/s F',
+      name: 'O3 - 1E v/s 2F',
       firstCountry: {
         value: groups.E[0],
         score: 0,
