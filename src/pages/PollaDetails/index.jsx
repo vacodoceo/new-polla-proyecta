@@ -19,7 +19,7 @@ import Loading from '../../components/Loading';
 import BetGroupPhase from './GroupPhase';
 import MatchesPhase from './MatchesPhase';
 
-const steps = ['Fase de grupos', 'Cuartos de final', 'Semifinal', 'Final'];
+const steps = ['Fase de grupos', 'Octavos de final', 'Cuartos de final', 'Semifinal', 'Final'];
 
 const useStyles = makeStyles((theme) => ({
   breadcrumbs: {

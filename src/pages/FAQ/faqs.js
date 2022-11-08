@@ -147,7 +147,7 @@ const faqs = [
   },
   {
     title:
-      '¿Por qué el pago está asociado a la cuenta de Marcela Céspedes? ¿Quién es Marcela Céspedes?',
+      '¿Por qué el pago está asociado a la cuenta de Constanza Lemus? ¿Quién es Constanza Lemus?',
     body: (
       <Typography>
         Proyecta es un voluntariado que pertenece a la Facultad de Ingeniería de
@@ -155,7 +155,7 @@ const faqs = [
         personalidad jurídica, lo que conlleva a que no sea posible tener una
         cuenta bancaria asociada a la organización. Es por este motivo que los
         ingresos asociados a los pagos de las apuestas se deben realizar a una
-        cuenta particular. Marcela Céspedes es una de los tres jefes generales de
+        cuenta particular. Constanza Lemus es una de los cuatro jefes de financiamiento de
         Proyecta, por lo que el pago de todas las apuestas de la polla se
         redirigen a su cuenta para que el dinero ingrese directamente a la
         organización.

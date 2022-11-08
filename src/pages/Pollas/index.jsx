@@ -64,6 +64,10 @@ const useStyles = makeStyles((theme) => ({
     background: red[700],
     color: 'white',
   },
+  pollaDetails: {
+    background: theme.palette.primary.light,
+    color: 'white'
+  }
 }));
 
 const Pollas = () => {
@@ -72,6 +76,7 @@ const Pollas = () => {
     firebase.firestore().collection('pollas_qatar').where('userId', '==', user.uid),
     { idField: 'id' }
   );
+  const unpaidPollas = pollas?.filter((polla) => polla.status === 'unpaid')
   const [selectedPollas, setSelectedPollas] = useState([]);
   const payPollasErrors = {
     empty: '¡Debes seleccionar al menos 1 polla!',
@@ -81,7 +86,7 @@ const Pollas = () => {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      setSelectedPollas(pollas.map((polla) => polla.id));
+      setSelectedPollas(unpaidPollas.map((polla) => polla.id));
       return;
     }
     setSelectedPollas([]);
@@ -124,35 +129,42 @@ const Pollas = () => {
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>Nombre</TableCell>
-                <TableCell>Identificador único</TableCell>
-                <TableCell>Fecha de creación</TableCell>
-                <TableCell align="center">Estado</TableCell>
-                <TableCell align="right">Puntaje</TableCell>
-                <TableCell padding="checkbox">
+              <TableCell padding="checkbox">
                   <Checkbox
                     color="primary"
                     indeterminate={
                       selectedPollas.length > 0 &&
-                      selectedPollas.length < pollas.length
+                      selectedPollas.length < unpaidPollas.length
                     }
                     checked={
                       selectedPollas.length > 0 &&
-                      selectedPollas.length === pollas.length
+                      selectedPollas.length === unpaidPollas.length
                     }
                     onChange={handleSelectAllClick}
                   />
                 </TableCell>
+                <TableCell>Nombre</TableCell>
+                <TableCell>Identificador único</TableCell>
+                <TableCell>Fecha de creación</TableCell>
+                <TableCell align="center">Estado</TableCell>
+                <TableCell align="center">Puntaje</TableCell>
+                <TableCell/>
               </TableRow>
             </TableHead>
             <TableBody>
               {pollas?.map((polla) => (
                 <TableRow
-                  component={Link}
                   key={polla.id}
                   className={classes.tableRow}
-                  to={`pollas/${polla.id}`}
                 >
+                  <TableCell padding="checkbox">
+                    <Checkbox
+                      color="primary"
+                      checked={selectedPollas.includes(polla.id)}
+                      onChange={() => handleSelectClick(polla.id)}
+                      disabled={polla.status === 'paid'}
+                    />
+                  </TableCell>
                   <TableCell>{polla.name}</TableCell>
                   <TableCell className={classes.code}>{polla.id}</TableCell>
                   <TableCell>
@@ -165,13 +177,15 @@ const Pollas = () => {
                       <Chip label="No pagada" className={classes.unpaid} />
                     )}
                   </TableCell>
-                  <TableCell align="right">{polla.score}</TableCell>
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      color="primary"
-                      checked={selectedPollas.includes(polla.id)}
-                      onChange={() => handleSelectClick(polla.id)}
-                    />
+                  <TableCell align="center">{polla.score}</TableCell>
+                  <TableCell padding="button">
+                    <Button
+                      component={Link}
+                      to={`pollas/${polla.id}`}
+                      className={classes.pollaDetails}
+                    >
+                      Ver polla
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}

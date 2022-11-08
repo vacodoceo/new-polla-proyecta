@@ -17,7 +17,7 @@ import CountUp from 'react-countup';
 
 import firebase from '../../firebase';
 import { makeStyles } from '@material-ui/core/styles';
-import landingBackground from '../../assets/images/landing2.jpg';
+import landingBackground from '../../assets/images/landing.jpg';
 import { getPrizes } from '../../helpers/prizes_helper';
 import { PRIZES_INTERVALS } from '../../constants/prizes';
 
@@ -144,6 +144,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.contrastText,
     padding: theme.spacing(2),
     fontSize: '1.2em',
+    zIndex: 10,
     '&:hover': {
       backgroundColor: '#F3C580'
     }
