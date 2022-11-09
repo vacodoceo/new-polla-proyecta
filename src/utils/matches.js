@@ -84,27 +84,27 @@ export const initResults = {
       },
     },
     {
-      name: 'O4 - 1H v/s 2G',
+      name: 'O4 - 1G v/s 2H',
       firstCountry: {
-        value: groups.H[0],
+        value: groups.G[0],
         score: 0,
         winner: false,
       },
       secondCountry: {
-        value: groups.G[1],
+        value: groups.H[1],
         score: 0,
         winner: false,
       },
     },
     {
-      name: 'O8 - 2H v/s 1G',
+      name: 'O8 - 2G v/s 1H',
       firstCountry: {
-        value: groups.H[1],
+        value: groups.G[1],
         score: 0,
         winner: false,
       },
       secondCountry: {
-        value: groups.G[0],
+        value: groups.H[0],
         score: 0,
         winner: false,
       },
@@ -244,10 +244,10 @@ export const assortResults = (results) => {
   roundOfSixteen[4].secondCountry.value = F[1];
   roundOfSixteen[5].firstCountry.value = E[1];
   roundOfSixteen[5].secondCountry.value = F[0];
-  roundOfSixteen[6].firstCountry.value = H[0];
-  roundOfSixteen[6].secondCountry.value = G[1];
-  roundOfSixteen[7].firstCountry.value = H[1];
-  roundOfSixteen[7].secondCountry.value = G[0];
+  roundOfSixteen[6].firstCountry.value = G[0];
+  roundOfSixteen[6].secondCountry.value = H[1];
+  roundOfSixteen[7].firstCountry.value = G[1];
+  roundOfSixteen[7].secondCountry.value = H[0];
 
   // Assort quarter finals teams
   quarterFinals[0].firstCountry.value = getWinner(roundOfSixteen[0]);
