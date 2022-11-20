@@ -231,13 +231,13 @@ const Landing = () => {
           </div>
         </Container>
       </div>
-      <Button
+      {/* <Button
         className={classes.betNowButton}
         component={Link}
         to='/bet'
       >
         ¡Apuesta ya!
-      </Button>
+      </Button> */}
       <div className={classes.bountyContainer}>
         <Chip
             color="primary"

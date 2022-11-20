@@ -173,7 +173,7 @@ const Payment = () => {
           (@proyectauc)
         </Typography>
 
-        <Button
+        {/* <Button
           onClick={handlePay}
           variant="contained"
           color="primary"
@@ -188,7 +188,7 @@ const Payment = () => {
             />
           )}
           Pagar
-        </Button>
+        </Button> */}
         <FeedbackDialog
           description={FeedbackDialogDescription}
           dialogOpen={feedbackDialogOpen}

@@ -193,7 +193,7 @@ const Pollas = () => {
           </Table>
         </div>
 
-        <Tooltip
+        {/* <Tooltip
           title={payError}
           aria-label="pay"
           disableHoverListener={!payError}
@@ -209,7 +209,7 @@ const Pollas = () => {
               Pagar
             </Button>
           </span>
-        </Tooltip>
+        </Tooltip> */}
       </Paper>
     </Container>
   );
