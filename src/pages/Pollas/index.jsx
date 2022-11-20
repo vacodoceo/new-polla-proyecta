@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import {
@@ -13,7 +13,7 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Tooltip,
+  // Tooltip,
   Typography,
 } from '@material-ui/core';
 import { green, red } from '@material-ui/core/colors';
@@ -78,11 +78,11 @@ const Pollas = () => {
   );
   const unpaidPollas = pollas?.filter((polla) => polla.status === 'unpaid')
   const [selectedPollas, setSelectedPollas] = useState([]);
-  const payPollasErrors = {
-    empty: '¡Debes seleccionar al menos 1 polla!',
-    paid: '¡Tienes seleccionadas 1 o más pollas pagadas!',
-  };
-  const [payError, setPayError] = useState(payPollasErrors.empty);
+  // const payPollasErrors = {
+  //   empty: '¡Debes seleccionar al menos 1 polla!',
+  //   paid: '¡Tienes seleccionadas 1 o más pollas pagadas!',
+  // };
+  // const [payError, setPayError] = useState(payPollasErrors.empty);
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
@@ -100,19 +100,19 @@ const Pollas = () => {
     setSelectedPollas([...selectedPollas, pollaId]);
   };
 
-  useEffect(() => {
-    const selectedPollasData = selectedPollas.map((pollaId) =>
-      _.find(pollas, (polla) => polla.id === pollaId)
-    );
+  // useEffect(() => {
+  //   const selectedPollasData = selectedPollas.map((pollaId) =>
+  //     _.find(pollas, (polla) => polla.id === pollaId)
+  //   );
 
-    if (_.isEmpty(selectedPollasData)) {
-      setPayError(payPollasErrors.empty);
-    } else if (
-      !selectedPollasData.every((polla) => polla.status === 'unpaid')
-    ) {
-      setPayError(payPollasErrors.paid);
-    } else setPayError();
-  }, [selectedPollas]);
+  //   if (_.isEmpty(selectedPollasData)) {
+  //     setPayError(payPollasErrors.empty);
+  //   } else if (
+  //     !selectedPollasData.every((polla) => polla.status === 'unpaid')
+  //   ) {
+  //     setPayError(payPollasErrors.paid);
+  //   } else setPayError();
+  // }, [selectedPollas]);
 
   const classes = useStyles();
   return (

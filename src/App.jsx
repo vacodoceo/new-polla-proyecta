@@ -5,12 +5,12 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { PrivateRoute, PublicRoute } from './components/Routes';
 import {
   AboutUs,
-  Bet,
+  // Bet,
   FAQ,
   Landing,
-  Payment,
-  PaymentCallback,
-  PollaDetails,
+  // Payment,
+  // PaymentCallback,
+  // PollaDetails,
   Pollas,
   Ranking,
   Results,
@@ -35,8 +35,8 @@ const App = () => {
           <Route path="/results" exact component={Results} />
           <PublicRoute path="/sign-up" exact component={SignUp} />
           <PublicRoute path="/sign-in" exact component={SignIn} />
-          <PrivateRoute path="/bet" exact component={Bet} />
-          <PrivateRoute
+          {/* <PrivateRoute path="/bet" exact component={Bet} /> */}
+          {/* <PrivateRoute
             path="/payment/callback"
             exact
             component={PaymentCallback}
@@ -46,7 +46,7 @@ const App = () => {
             path="/pollas/:pollaId"
             exact
             component={PollaDetails}
-          />
+          /> */}
           <PrivateRoute path="/pollas" exact component={Pollas} />
         </Switch>
       </main>

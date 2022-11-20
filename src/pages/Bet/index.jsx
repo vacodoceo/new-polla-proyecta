@@ -189,7 +189,7 @@ const Bet = () => {
       <Button onClick={() => window.location.reload()} variant="contained">
         Crear otra polla
       </Button>
-      {/* <Button
+      <Button
         component={Link}
         to={'/pollas'}
         variant="contained"
@@ -204,7 +204,7 @@ const Bet = () => {
         color="primary"
       >
         Ir a pagar
-      </Button> */}
+      </Button>
     </>
   );
 

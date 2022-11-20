@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import {
-  Button,
-  CircularProgress,
+  // Button,
+  // CircularProgress,
   Container,
   List,
   ListItem,
@@ -63,8 +63,8 @@ const Payment = () => {
   const history = useHistory();
 
   const [pollas] = useState(query.get("pollas")?.split(","));
-  const [checkout, setCheckout] = useState();
-  const [checkoutError, setCheckoutError] = useState();
+  // const [checkout, setCheckout] = useState();
+  // const [checkoutError, setCheckoutError] = useState();
   const [feedbackDialogOpen, setFeedbackDialogOpen] = useState(false);
   const [pollasData] = useCollectionData(
     firebase
@@ -73,7 +73,7 @@ const Payment = () => {
       .where("__name__", "in", pollas),
     { idField: "id" }
   );
-  const [paymentDisabled, setPaymentDisabled] = useState(true);
+  // const [paymentDisabled, setPaymentDisabled] = useState(true);
 
   useEffect(() => {
     if (_.isEmpty(pollas)) {
@@ -92,34 +92,34 @@ const Payment = () => {
 
       if (preferenceId) {
         // eslint-disable-next-line no-undef
-        const mp = new MercadoPago(
-          process.env.REACT_APP_MERCADOPAGO_PUBLIC_KEY,
-          {
-            locale: "es-CL"
-          }
-        );
+        // const mp = new MercadoPago(
+        //   process.env.REACT_APP_MERCADOPAGO_PUBLIC_KEY,
+        //   {
+        //     locale: "es-CL"
+        //   }
+        // );
 
-        setCheckout(
-          mp.checkout({
-            preference: {
-              id: preferenceId
-            }
-          })
-        );
+        // setCheckout(
+        //   mp.checkout({
+        //     preference: {
+        //       id: preferenceId
+        //     }
+        //   })
+        // );
       } else {
-        setCheckoutError(true);
+        // setCheckoutError(true);
       }
-      setTimeout(() => setPaymentDisabled(false), 3000);
+      // setTimeout(() => setPaymentDisabled(false), 3000);
     }
   }, [pollas]);
 
-  const handlePay = () => {
-    if (checkoutError) {
-      setFeedbackDialogOpen(true);
-    } else {
-      checkout?.open();
-    }
-  };
+  // const handlePay = () => {
+  //   if (checkoutError) {
+  //     setFeedbackDialogOpen(true);
+  //   } else {
+  //     checkout?.open();
+  //   }
+  // };
 
   const FeedbackDialogDescription = () => (
     <>
